@@ -1,89 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.zava.mymobileapp.SignUpActivity">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context="com.example.zava.mymobileapp.SignUpActivity">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+  <RelativeLayout
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">
 
 
-        <EditText
-            android:id="@+id/firstNameEt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:ems="10"
-            android:inputType="textCapWords"
-            android:hint="First Name" />
+    <EditText
+        android:id="@+id/firstNameEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="First Name"
+        android:inputType="textCapWords"/>
 
-        <EditText
-            android:id="@+id/lastNameEt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/firstNameEt"
-            android:layout_below="@+id/firstNameEt"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:inputType="textCapWords"
-            android:hint="Last Name" />
+    <EditText
+        android:id="@+id/lastNameEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/firstNameEt"
+        android:layout_below="@+id/firstNameEt"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textCapWords"/>
 
-        <EditText
-            android:id="@+id/emailEt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/lastNameEt"
-            android:layout_below="@+id/lastNameEt"
-            android:layout_marginTop="25dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:hint="Email"/>
+    <EditText
+        android:id="@+id/emailEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/lastNameEt"
+        android:layout_below="@+id/lastNameEt"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"/>
 
-        <EditText
-            android:id="@+id/phoneEt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/emailEt"
-            android:layout_centerVertical="true"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Phone"/>
+    <EditText
+        android:id="@+id/phoneEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/emailEt"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="Phone"
+        android:inputType="text"/>
 
-        <EditText
-            android:id="@+id/passwordEt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/phoneEt"
-            android:layout_below="@+id/phoneEt"
-            android:layout_marginTop="23dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="Password"/>
+    <EditText
+        android:id="@+id/passwordEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/phoneEt"
+        android:layout_below="@+id/phoneEt"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"/>
 
-        <EditText
-            android:id="@+id/passwordConfirmEt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/passwordEt"
-            android:layout_below="@+id/passwordEt"
-            android:layout_marginTop="21dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="Confirm password"/>
+    <EditText
+        android:id="@+id/passwordConfirmEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/passwordEt"
+        android:layout_below="@+id/passwordEt"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Confirm password"
+        android:inputType="textPassword"/>
 
-        <Button
-            android:id="@+id/submitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="15dp"
-            android:text="Submit" />
-    </RelativeLayout>
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="13dp"
+        android:text="Submit"/>
+
+    <Button
+        android:id="@+id/btn_change_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/submitButton"
+        android:layout_alignBottom="@+id/submitButton"
+        android:layout_toStartOf="@+id/submitButton"
+        android:text="Go to activity"/>
+  </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>

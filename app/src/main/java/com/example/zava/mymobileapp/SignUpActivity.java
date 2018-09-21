@@ -1,18 +1,19 @@
 package com.example.zava.mymobileapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.zava.mymobileapp.Utilities.Validations;
-
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity {
 
   private EditText firstName, lastName, email;
   private EditText phone, password, confirmPassword;
-  private Button submitButton;
+  private Button submitButton, nextLabButton;
   private String emailText, phoneText, passwordText, confPassText;
   private String firstNameText, lastNameText;
 
@@ -24,19 +25,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     initFields();
   }
 
-
-  @Override
-  public void onClick(View view) {
-
-    emailText = email.getText().toString();
-    passwordText = password.getText().toString();
-    firstNameText = firstName.getText().toString();
-    lastNameText = lastName.getText().toString();
-    passwordText = password.getText().toString();
-    confPassText = confirmPassword.getText().toString();
-    phoneText = phone.getText().toString();
-    checkFields();
+  private void saveInfo() {
+    SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putString("name", firstName.getText().toString());
+    editor.putString("surname", lastName.getText().toString());
+    editor.putString("email", email.getText().toString());
+    editor.putString("phone", phone.getText().toString());
+    editor.apply();
   }
+
 
   public void checkFields() {
     if (!Validations.isValidPassword(passwordText)
@@ -67,16 +65,39 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         confirmPassword.setError(getText(R.string.badPasswordConfirmation));
       }
     }
+    saveInfo();
   }
 
   public void initFields() {
     firstName = findViewById(R.id.firstNameEt);
     lastName = findViewById(R.id.lastNameEt);
     phone = findViewById(R.id.phoneEt);
-    email = findViewById(R.id.email);
+    email = findViewById(R.id.emailEt);
     password = findViewById(R.id.passwordEt);
-    confirmPassword = findViewById(R.id.passwordConfirm);
+    confirmPassword = findViewById(R.id.passwordConfirmEt);
     submitButton = findViewById(R.id.submitButton);
-    submitButton.setOnClickListener(this);
+    nextLabButton = findViewById(R.id.btn_change_act);
+
+    submitButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        emailText = email.getText().toString();
+        passwordText = password.getText().toString();
+        firstNameText = firstName.getText().toString();
+        lastNameText = lastName.getText().toString();
+        passwordText = password.getText().toString();
+        confPassText = confirmPassword.getText().toString();
+        phoneText = phone.getText().toString();
+        checkFields();
+      }
+    });
+
+    nextLabButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent activityChangeIntent = new Intent(SignUpActivity.this, SignUpDataActivity.class);
+        SignUpActivity.this.startActivity(activityChangeIntent);
+      }
+    });
   }
 }

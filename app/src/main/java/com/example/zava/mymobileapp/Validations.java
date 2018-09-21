@@ -1,4 +1,4 @@
-package com.example.zava.mymobileapp.Utilities;
+package com.example.zava.mymobileapp;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
