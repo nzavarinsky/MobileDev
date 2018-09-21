@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">MyMobileApp</string>
+  <string name="app_name">MyMobileApp</string>
+  <string name="badFirtsname">Введіть більше одного символа</string>
+  <string name="badLastname">Введіть більше одного символа</string>
+  <string name="badEmail">Введіть правильний емейл</string>
+  <string name="badPhone">Неправильний формат вводу мобільного телефону</string>
+  <string name="badPassword">Введіть більше 7 символів</string>
+  <string name="badPasswordConfirmation">Паролі не співпадають</string>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.zava.mylittleapp.SignUpActivity">
+    tools:context="com.example.zava.mymobileapp.SignUpActivity">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -12,7 +12,7 @@
 
 
         <EditText
-            android:id="@+id/firstName"
+            android:id="@+id/firstNameEt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -22,54 +22,54 @@
             android:hint="First Name" />
 
         <EditText
-            android:id="@+id/lastName"
+            android:id="@+id/lastNameEt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/firstName"
-            android:layout_below="@+id/firstName"
+            android:layout_alignEnd="@+id/firstNameEt"
+            android:layout_below="@+id/firstNameEt"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:inputType="textCapWords"
             android:hint="Last Name" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/emailEt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/lastName"
-            android:layout_below="@+id/lastName"
+            android:layout_alignStart="@+id/lastNameEt"
+            android:layout_below="@+id/lastNameEt"
             android:layout_marginTop="25dp"
             android:ems="10"
             android:inputType="textEmailAddress"
             android:hint="Email"/>
 
         <EditText
-            android:id="@+id/phone"
+            android:id="@+id/phoneEt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/email"
+            android:layout_alignEnd="@+id/emailEt"
             android:layout_centerVertical="true"
             android:ems="10"
             android:inputType="text"
             android:hint="Phone"/>
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/passwordEt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/phone"
-            android:layout_below="@+id/phone"
+            android:layout_alignStart="@+id/phoneEt"
+            android:layout_below="@+id/phoneEt"
             android:layout_marginTop="23dp"
             android:ems="10"
             android:inputType="textPassword"
             android:hint="Password"/>
 
         <EditText
-            android:id="@+id/passwordConfirm"
+            android:id="@+id/passwordConfirmEt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/password"
-            android:layout_below="@+id/password"
+            android:layout_alignStart="@+id/passwordEt"
+            android:layout_below="@+id/passwordEt"
             android:layout_marginTop="21dp"
             android:ems="10"
             android:inputType="textPassword"
