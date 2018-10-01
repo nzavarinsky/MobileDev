@@ -1,18 +1,21 @@
 <resources>
-    <string name="app_name">Mobile-programming</string>
+  <string name="app_name">Mobile-programming</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
+  <!-- Strings related to login -->
+  <string name="prompt_email">Email</string>
+  <string name="prompt_password">Password (optional)</string>
+  <string name="action_sign_in">Sign in or register</string>
+  <string name="action_sign_in_short">Sign in</string>
+  <string name="error_invalid_email">This email address is invalid</string>
+  <string name="error_invalid_password">This password is too short</string>
+  <string name="error_incorrect_password">This password is incorrect</string>
+  <string name="error_field_required">This field is required</string>
+  <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+  <string name="action_refresh">Refresh</string>
+  <string name="find_web">Find In Web</string>
+  <string name="share_new_release">Share</string>
   <string name="badFirtsname">Введіть більше одного символа</string>
   <string name="badLastname">Введіть більше одного символа</string>
   <string name="badEmail">Введіть правильний емейл</string>
@@ -28,4 +31,5 @@
   <string name="password">Password</string>
   <string name="password_confirmation">Password confirmation</string>
   <string name="show_users">Show users</string>
+
 </resources>
