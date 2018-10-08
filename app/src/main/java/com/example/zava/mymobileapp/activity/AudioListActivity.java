@@ -2,6 +2,7 @@ package com.example.zava.mymobileapp.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,9 +46,10 @@ public class AudioListActivity extends AppCompatActivity{
     private List<CardAlbum> cardAlbumListData;
     private ProgressBar loadMainActivity;
     private Toolbar toolbar_main_activity;
+    private SwipeRefreshLayout swipeContainer;
 
 
-    public static String getAccessToken() {
+  public static String getAccessToken() {
         return accessToken;
     }
 
@@ -63,6 +65,18 @@ public class AudioListActivity extends AppCompatActivity{
                 (clientId, AuthenticationResponse.Type.TOKEN, redirectUri);
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, request_Code, request);
+      swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+      // Setup refresh listener which triggers new data loading
+      swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+          new SpotifyNewRelease(accessToken).execute();
+          swipeContainer.setRefreshing(false);
+        }
+
+      });
+
+
     }
 
     //authetnitcation
