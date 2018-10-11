@@ -17,8 +17,6 @@
     <activity android:name=".MainActivity">
 
     </activity>
-    <activity android:name=".SignUpActivity"/>
-    <activity android:name=".SignUpDataActivity"/>
     <activity android:name=".activity.AudioListActivity"
               android:theme="@style/CustomTheme">
       <intent-filter>
