@@ -7,8 +7,19 @@
         apps:showAsAction="ifRoom"
         android:id="@+id/item_action_refresh"/>
 
-    <item android:title="@string/find_web"
-        android:orderInCategory="1"
-        android:id="@+id/find_web"
-        />
+
+  <item
+      android:id="@+id/action_add_favourite"
+      android:orderInCategory="100"
+      android:title="Add to favourite" />
+
+  <item
+      android:id="@+id/remove_from_favourite"
+      android:orderInCategory="100"
+      android:title="Remove from favourite" />
+
+  <item
+      android:id="@+id/look_favourites"
+      android:orderInCategory="100"
+      android:title="Favourites List" />
 </menu>
