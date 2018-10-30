@@ -161,7 +161,7 @@ public class DetailActivity extends AppCompatActivity {
     Toast.makeText(DetailActivity.this, "AdRemoved from favourites", Toast.LENGTH_SHORT).show();
   }
 
-  
+
   public class SpotifyAlbum extends AsyncTask<Void, Void, List<AlbumTrack>> {
 
     private String spotifyAlbumId;

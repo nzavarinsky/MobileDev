@@ -1,3 +1,4 @@
+/*
 package com.example.zava.mymobileapp;
 
 import android.content.Intent;
@@ -55,3 +56,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onPointerCaptureChanged(boolean hasCapture) {
     }
 }
+*/

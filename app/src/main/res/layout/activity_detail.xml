@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColorBright"
+        tools:context="com.example.zava.mymobileapp.activity.DetailActivity">
+
+    <!--<include android:id="@+id/toolbar_detail_activity"-->
+        <!--layout="@layout/tool_bar">-->
+    <!--</include>-->
+
+
+
+        <ProgressBar
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:id="@+id/load_detailactivity"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="invisible"/>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:id="@+id/imageView_album_detail_image"/>
+
+        <TextView
+            tools:text="Dummy Artist Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_album_detail_artist_name"
+            android:layout_below="@+id/textView_album_detail_album_name"
+            android:fontFamily="monospace"
+            android:textColor="@color/textColorDark"
+            android:elevation="14dp"
+            android:textSize="14sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            tools:text="Dummy Album Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/textView_album_detail_album_name"
+            android:layout_below="@+id/imageView_album_detail_image"
+            android:fontFamily="monospace"
+            android:textColor="@color/textColorDark"
+            android:elevation="14dp"
+            android:textSize="24sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            tools:text="Dummy Release date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/textView_album_detail_album_release_date"
+            android:layout_below="@+id/textView_album_detail_artist_name"
+            android:textColor="@color/textColorDark"
+            android:elevation="14dp"
+            android:fontFamily="monospace"
+            android:textSize="14sp"
+            android:paddingLeft="4dp"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerView_for_detail_activity_track_details"
+            android:layout_below="@+id/textView_album_detail_album_release_date"
+            android:background="@color/backgroundColorBright">
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+
+
