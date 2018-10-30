@@ -2,7 +2,6 @@ package com.example.zava.mymobileapp.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,10 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -48,23 +45,21 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
 
   private static String accessToken;
 
-  private static final String BUNDLE_EXTRA = "BUNDLE_EXTRA";
-  private static final String EXTRA_ALBUM_ID = "EXTRA_ALBUM_ID";
-  private static final String EXTRA_ALBUM_NAME = "EXTRA_ALBUM_NAME";
-  private static final String EXTRA_ALBUM_IMAGE = "EXTRA_ALBUM_IMAGE";
-  private static final String EXTRA_ALBUM_ARTIST_NAME = "EXTRA_ALBUM_ARTIST_NAME";
-  private static final String EXTRA_ALBUM_RELEASE_DATE = "EXTRA_ALBUM_RELEASE_DATE";
-  private static final String EXTRA_SPOTIFY_ACCESS_TOKEN = "EXTRA_SPOTIFY_ACCESS_TOKEN";
-  private static final String EXTRA_ALBUM_ARTIST_ID = "EXTRA_ARTIST_ID";
+  private static final String sBUNDLE_EXTRA = "sBUNDLE_EXTRA";
+  private static final String sEXTRA_ALBUM_ID = "sEXTRA_ALBUM_ID";
+  private static final String sEXTRA_ALBUM_NAME = "sEXTRA_ALBUM_NAME";
+  private static final String sEXTRA_ALBUM_IMAGE = "sEXTRA_ALBUM_IMAGE";
+  private static final String sEXTRA_ALBUM_ARTIST_NAME = "sEXTRA_ALBUM_ARTIST_NAME";
+  private static final String sEXTRA_ALBUM_RELEASE_DATE = "sEXTRA_ALBUM_RELEASE_DATE";
+  private static final String sEXTRA_SPOTIFY_ACCESS_TOKEN = "sEXTRA_SPOTIFY_ACCESS_TOKEN";
+  private static final String sEXTRA_ALBUM_ARTIST_ID = "EXTRA_ARTIST_ID";
 
   //Instance variables for the Main Activity.
-  private RecyclerView recyclerView;
-  private CardAdapter cardAdapter;
-  private List<CardAlbum> cardAlbumListData;
+  private RecyclerView mRecyclerView;
+  private CardAdapter mCardAdapter;
+  private List<CardAlbum> mCardAlbumListData;
   private ProgressBar loadMainActivity;
-  private Toolbar toolbar_main_activity;
-  private ToggleButton toggleButton;
-
+  private Toolbar toolbarMainActivity;
 
   public static String getAccessToken() {
     System.out.println(accessToken);
@@ -76,9 +71,9 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_audio_list);
     loadMainActivity = (ProgressBar) findViewById(R.id.load_mainactivity);
-    recyclerView = (RecyclerView) findViewById(R.id.recyclerview_for_main_activity);
-    toolbar_main_activity = (Toolbar) findViewById(R.id.activity_main_toolbar);
-    setSupportActionBar(toolbar_main_activity);
+    mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_for_main_activity);
+    toolbarMainActivity = (Toolbar) findViewById(R.id.activity_main_toolbar);
+    setSupportActionBar(toolbarMainActivity);
     AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder
         (clientId, AuthenticationResponse.Type.TOKEN, redirectUri);
     AuthenticationRequest request = builder.build();
@@ -102,28 +97,28 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
 
   public void showProgress() {
     loadMainActivity.setVisibility(View.VISIBLE);
-    recyclerView.setVisibility(View.INVISIBLE);
+    mRecyclerView.setVisibility(View.INVISIBLE);
   }
 
 
   public void showData() {
     loadMainActivity.setVisibility(View.INVISIBLE);
-    recyclerView.setVisibility(View.VISIBLE);
+    mRecyclerView.setVisibility(View.VISIBLE);
   }
 
   public void loadSpotifyNewReleaseData(List<CardAlbum> cardAlbumList) {
     //Setting the LayoutManager for the RecyclerView
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     //Instantiating CardAdapter class using the defined constructor
     if (cardAlbumList.size() > 0) {
-      cardAdapter = new CardAdapter(cardAlbumList, this);
+      mCardAdapter = new CardAdapter(cardAlbumList, this);
     } else {
       Log.d("NULLList", "We are getting a Null List from the background thread !!!");
     }
     //Giving the reference of the Adapter class instance to the RecyclerView
-    recyclerView.setAdapter(cardAdapter);
+    mRecyclerView.setAdapter(mCardAdapter);
     //Giving the reference of the Callback interface to the Card Adapter so that the CallbackInterface methods can be called upon events.
-    cardAdapter.setCardClickCallBack(this);
+    mCardAdapter.setCardClickCallBack(this);
     Toast.makeText(AudioListActivity.this, "New Releases from Spotify", Toast.LENGTH_SHORT).show();
   }
 
@@ -152,17 +147,17 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
 
   @Override
   public void onCardClick(int position) {
-    CardAlbum cardAlbum = cardAlbumListData.get(position);
+    CardAlbum cardAlbum = mCardAlbumListData.get(position);
 
     Intent intent = new Intent(this, DetailActivity.class);
     Bundle bundle = new Bundle();
-    bundle.putString(EXTRA_ALBUM_ID, cardAlbum.getAlbumId());
-    bundle.putString(EXTRA_ALBUM_NAME, cardAlbum.getAlbumName());
-    bundle.putString(EXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
-    bundle.putString(EXTRA_ALBUM_IMAGE, cardAlbum.getAlbumImageURL());
-    bundle.putString(EXTRA_ALBUM_RELEASE_DATE, cardAlbum.getAlbumReleaseDate());
-    bundle.putString(EXTRA_SPOTIFY_ACCESS_TOKEN, getAccessToken());
-    intent.putExtra(BUNDLE_EXTRA, bundle);
+    bundle.putString(sEXTRA_ALBUM_ID, cardAlbum.getAlbumId());
+    bundle.putString(sEXTRA_ALBUM_NAME, cardAlbum.getAlbumName());
+    bundle.putString(sEXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
+    bundle.putString(sEXTRA_ALBUM_IMAGE, cardAlbum.getAlbumImageURL());
+    bundle.putString(sEXTRA_ALBUM_RELEASE_DATE, cardAlbum.getAlbumReleaseDate());
+    bundle.putString(sEXTRA_SPOTIFY_ACCESS_TOKEN, getAccessToken());
+    intent.putExtra(sBUNDLE_EXTRA, bundle);
     startActivity(intent);
   }
 
@@ -170,14 +165,14 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
   @Override
   public void onCardButtonClick(int position) {
 
-    CardAlbum cardAlbum = cardAlbumListData.get(position);
+    CardAlbum cardAlbum = mCardAlbumListData.get(position);
     Intent intent = new Intent(this, ArtistActivity.class);
     Bundle bundle = new Bundle();
     Bundle imgBundle = new Bundle();
-    bundle.putString(EXTRA_ALBUM_ARTIST_ID, cardAlbum.getArtistId());
-    bundle.putString(EXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
-    bundle.putString(EXTRA_SPOTIFY_ACCESS_TOKEN, getAccessToken());
-    intent.putExtra(BUNDLE_EXTRA, bundle);
+    bundle.putString(sEXTRA_ALBUM_ARTIST_ID, cardAlbum.getArtistId());
+    bundle.putString(sEXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
+    bundle.putString(sEXTRA_SPOTIFY_ACCESS_TOKEN, getAccessToken());
+    intent.putExtra(sBUNDLE_EXTRA, bundle);
     startActivity(intent);
   }
 
@@ -210,7 +205,7 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
 
     @Override
     protected void onPostExecute(List<CardAlbum> cardAlbumList) {
-      cardAlbumListData = cardAlbumList;
+      mCardAlbumListData = cardAlbumList;
       loadSpotifyNewReleaseData(cardAlbumList);
       showData();
     }

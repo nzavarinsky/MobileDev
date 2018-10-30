@@ -6,20 +6,28 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by Zava on 17.10.2018.
- */
 
 public class DBHelp extends SQLiteOpenHelper {
 
-  public  DBHelp(Context c){
-    super(c, "Favourite", null, 1);
+  private static String sDB_NAME = "Favourite";
+  private static String ALBUM_NAME = "albumName";
+  private static String ARTIST_NAME = "artistName";
+  private static String ALBUM_IMAGE_URL = "albumImageURL";
+  private static String ALBUM_RELEASE_DATE = "albumReleaseDate";
+  private static String TABLE_NAME = "album";
+
+
+  public DBHelp(Context c) {
+    super(c, sDB_NAME, null, 1);
   }
 
   @Override
   public void onCreate(SQLiteDatabase db) {
-    db.execSQL("create table album( id INTEGER PRIMARY KEY AUTOINCREMENT, albumName text, " +
-        "artistName text, albumImageURL text, albumReleaseDate text)");
+    db.execSQL("create table album( id INTEGER PRIMARY KEY AUTOINCREMENT," +
+        " albumName text, " +
+        "artistName text, " +
+        "albumImageURL text," +
+        " albumReleaseDate text)");
   }
 
   @Override
@@ -28,14 +36,14 @@ public class DBHelp extends SQLiteOpenHelper {
   }
 
   public boolean insert(String albumName, String artistName, String
-      albumImageURL,  String albumReleaseDate) {
+      albumImageURL, String albumReleaseDate) {
     SQLiteDatabase db = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
-    contentValues.put("albumName", albumName);
-    contentValues.put("artistName", artistName);
-    contentValues.put("albumImageURL", albumImageURL);
-    contentValues.put("albumReleaseDate", albumReleaseDate);
-    long res = db.insert("album", null, contentValues);
+    contentValues.put(ALBUM_NAME, albumName);
+    contentValues.put(ARTIST_NAME, artistName);
+    contentValues.put(ALBUM_IMAGE_URL, albumImageURL);
+    contentValues.put(ALBUM_RELEASE_DATE, albumReleaseDate);
+    long res = db.insert(TABLE_NAME, null, contentValues);
     System.out.print(res);
     return true;
   }
@@ -47,9 +55,9 @@ public class DBHelp extends SQLiteOpenHelper {
     return true;
   }
 
-  public Cursor queueAll(){
+  public Cursor queueAll() {
     SQLiteDatabase db = this.getWritableDatabase();
-      return db.rawQuery("select  albumName,  artistName,albumImageURL ,\n" +
+    return db.rawQuery("select  albumName,  artistName,albumImageURL ,\n" +
         "albumReleaseDate from album", null);
   }
 }

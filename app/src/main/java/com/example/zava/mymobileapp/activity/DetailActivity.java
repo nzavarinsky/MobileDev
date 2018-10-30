@@ -1,21 +1,15 @@
 package com.example.zava.mymobileapp.activity;
 
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +19,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.example.zava.mymobileapp.R;
 import com.example.zava.mymobileapp.adapters.AlbumTrackAdapter;
@@ -40,43 +33,39 @@ import kaaes.spotify.webapi.android.models.TrackSimple;
 
 public class DetailActivity extends AppCompatActivity {
 
-  private static final String BUNDLE_EXTRA = "BUNDLE_EXTRA";
-  private static final String EXTRA_ALBUM_ID = "EXTRA_ALBUM_ID";
-  private static final String EXTRA_ALBUM_NAME = "EXTRA_ALBUM_NAME";
-  private static final String EXTRA_ALBUM_IMAGE = "EXTRA_ALBUM_IMAGE";
-  private static final String EXTRA_ALBUM_ARTIST_NAME = "EXTRA_ALBUM_ARTIST_NAME";
-  private static final String EXTRA_ALBUM_RELEASE_DATE = "EXTRA_ALBUM_RELEASE_DATE";
-  private static final String EXTRA_SPOTIFY_ACCESS_TOKEN = "EXTRA_SPOTIFY_ACCESS_TOKEN";
+  private static final String sBUNDLE_EXTRA = "sBUNDLE_EXTRA";
+  private static final String sEXTRA_ALBUM_ID = "sEXTRA_ALBUM_ID";
+  private static final String sEXTRA_ALBUM_NAME = "sEXTRA_ALBUM_NAME";
+  private static final String sEXTRA_ALBUM_IMAGE = "sEXTRA_ALBUM_IMAGE";
+  private static final String sEXTRA_ALBUM_ARTIST_NAME = "sEXTRA_ALBUM_ARTIST_NAME";
+  private static final String sEXTRA_ALBUM_RELEASE_DATE = "sEXTRA_ALBUM_RELEASE_DATE";
+  private static final String sEXTRA_SPOTIFY_ACCESS_TOKEN = "sEXTRA_SPOTIFY_ACCESS_TOKEN";
 
-  private List<AlbumTrack> albumTrackList;
-  private RecyclerView recyclerView;
-  private AlbumTrackAdapter albumTrackAdapter;
-  private ProgressBar load_detailactivity;
-  private TextView textView_textView_album_detail_album_name;
-  private TextView textView_textView_album_detail_artist_name;
-  private TextView textView_textView_album_detail_album_release_date;
-  private ImageView imageView_imageView_album_detail_image;
-  private String fullScreenInd;
-  private Toolbar toolbar;
+  private List<AlbumTrack> mAlbumTrackList;
+  private RecyclerView mRecyclerView;
+  private AlbumTrackAdapter mAlbumTrackAdapter;
+  private ProgressBar loadDetailActivity;
+  private TextView txtViewAlbumDetailAlbumName;
+  private TextView txtViewAlbumDetailArtistName;
+  private TextView txtViewAlbumDetailAlbumReleaseDate;
+  private ImageView imgViewAlbumDetailAlbumImage;
   private Bundle extras;
-  private boolean zoomOut = false;
   private DBHelp dbHelp;
-  private Cursor cursor;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail);
-    load_detailactivity = (ProgressBar) findViewById(R.id.load_detailactivity);
-    textView_textView_album_detail_album_name = (TextView) findViewById(R.id.textView_album_detail_album_name);
-    textView_textView_album_detail_artist_name = (TextView) findViewById(R.id.textView_album_detail_artist_name);
-    textView_textView_album_detail_album_release_date = (TextView) findViewById(R.id.textView_album_detail_album_release_date);
-    imageView_imageView_album_detail_image = (ImageView) findViewById(R.id.imageView_album_detail_image);
-    recyclerView = (RecyclerView) findViewById(R.id.recyclerView_for_detail_activity_track_details);
-    extras = getIntent().getBundleExtra(BUNDLE_EXTRA);
+    loadDetailActivity = (ProgressBar) findViewById(R.id.load_detailactivity);
+    txtViewAlbumDetailAlbumName = (TextView) findViewById(R.id.textView_album_detail_album_name);
+    txtViewAlbumDetailArtistName = (TextView) findViewById(R.id.textView_album_detail_artist_name);
+    txtViewAlbumDetailAlbumReleaseDate = (TextView) findViewById(R.id.textView_album_detail_album_release_date);
+    imgViewAlbumDetailAlbumImage = (ImageView) findViewById(R.id.imageView_album_detail_image);
+    mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_for_detail_activity_track_details);
+    extras = getIntent().getBundleExtra(sBUNDLE_EXTRA);
     dbHelp = new DBHelp(this);
-    new SpotifyAlbum(extras.getString(EXTRA_ALBUM_ID),
-        extras.getString(EXTRA_SPOTIFY_ACCESS_TOKEN)).execute();
+    new SpotifyAlbum(extras.getString(sEXTRA_ALBUM_ID),
+        extras.getString(sEXTRA_SPOTIFY_ACCESS_TOKEN)).execute();
 
 
   }
@@ -86,38 +75,41 @@ public class DetailActivity extends AppCompatActivity {
 
       //Picasso Experiment Begin
       Picasso.with(this).setLoggingEnabled(true);
-      Picasso.with(this).load(extras.getString(EXTRA_ALBUM_IMAGE)).into(imageView_imageView_album_detail_image);
+      Picasso.with(this).load(extras.getString(sEXTRA_ALBUM_IMAGE)).into
+          (imgViewAlbumDetailAlbumImage);
       //Experiment Experiment End
-      textView_textView_album_detail_album_name.setText(extras.getString(EXTRA_ALBUM_NAME));
-      textView_textView_album_detail_artist_name.setText(extras.getString(EXTRA_ALBUM_ARTIST_NAME));
-      textView_textView_album_detail_album_release_date.setText(extras.getString(EXTRA_ALBUM_RELEASE_DATE));
+      txtViewAlbumDetailAlbumName.setText(extras.getString(sEXTRA_ALBUM_NAME));
+      txtViewAlbumDetailArtistName.setText(extras.getString
+          (sEXTRA_ALBUM_ARTIST_NAME));
+      txtViewAlbumDetailAlbumReleaseDate.setText(extras.getString
+          (sEXTRA_ALBUM_RELEASE_DATE));
 
-      recyclerView.setLayoutManager(new LinearLayoutManager(this));
-      if (albumTrackList.size() > 0) {
-        albumTrackAdapter = new AlbumTrackAdapter(albumTrackList, this);
+      mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+      if (mAlbumTrackList.size() > 0) {
+        mAlbumTrackAdapter = new AlbumTrackAdapter(mAlbumTrackList, this);
       }
-      recyclerView.setAdapter(albumTrackAdapter);
+      mRecyclerView.setAdapter(mAlbumTrackAdapter);
     } catch (NullPointerException nP) {
       Log.v("NullPointerException", nP.getMessage());
     }
   }
 
   public void showProgress() {
-    load_detailactivity.setVisibility(View.VISIBLE);
-    textView_textView_album_detail_album_name.setVisibility(View.INVISIBLE);
-    textView_textView_album_detail_artist_name.setVisibility(View.INVISIBLE);
-    textView_textView_album_detail_album_release_date.setVisibility(View.INVISIBLE);
-    imageView_imageView_album_detail_image.setVisibility(View.INVISIBLE);
-    recyclerView.setVisibility(View.INVISIBLE);
+    loadDetailActivity.setVisibility(View.VISIBLE);
+    txtViewAlbumDetailAlbumName.setVisibility(View.INVISIBLE);
+    txtViewAlbumDetailArtistName.setVisibility(View.INVISIBLE);
+    txtViewAlbumDetailAlbumReleaseDate.setVisibility(View.INVISIBLE);
+    imgViewAlbumDetailAlbumImage.setVisibility(View.INVISIBLE);
+    mRecyclerView.setVisibility(View.INVISIBLE);
   }
 
   public void showData() {
-    load_detailactivity.setVisibility(View.INVISIBLE);
-    textView_textView_album_detail_album_name.setVisibility(View.VISIBLE);
-    textView_textView_album_detail_artist_name.setVisibility(View.VISIBLE);
-    textView_textView_album_detail_album_release_date.setVisibility(View.VISIBLE);
-    imageView_imageView_album_detail_image.setVisibility(View.VISIBLE);
-    recyclerView.setVisibility(View.VISIBLE);
+    loadDetailActivity.setVisibility(View.INVISIBLE);
+    txtViewAlbumDetailAlbumName.setVisibility(View.VISIBLE);
+    txtViewAlbumDetailArtistName.setVisibility(View.VISIBLE);
+    txtViewAlbumDetailAlbumReleaseDate.setVisibility(View.VISIBLE);
+    imgViewAlbumDetailAlbumImage.setVisibility(View.VISIBLE);
+    mRecyclerView.setVisibility(View.VISIBLE);
   }
 
   @Override
@@ -133,13 +125,13 @@ public class DetailActivity extends AppCompatActivity {
     switch (selectedItmId) {
       case (R.id.action_add_favourite):
         Toast.makeText(DetailActivity.this, "Add to favourites", Toast.LENGTH_SHORT).show();
-        String alb_name = extras.getString(EXTRA_ALBUM_NAME);
-        String art_name = extras.getString(EXTRA_ALBUM_ARTIST_NAME);
-        saveToDB(alb_name, art_name, extras.getString(EXTRA_ALBUM_IMAGE), extras
-            .getString(EXTRA_ALBUM_RELEASE_DATE));
+        String alb_name = extras.getString(sEXTRA_ALBUM_NAME);
+        String art_name = extras.getString(sEXTRA_ALBUM_ARTIST_NAME);
+        saveToDB(alb_name, art_name, extras.getString(sEXTRA_ALBUM_IMAGE), extras
+            .getString(sEXTRA_ALBUM_RELEASE_DATE));
         return true;
       case (R.id.remove_from_favourite):
-        removeFromDB(extras.getString(EXTRA_ALBUM_IMAGE));
+        removeFromDB(extras.getString(sEXTRA_ALBUM_IMAGE));
       default:
         return super.onOptionsItemSelected(item);
     }
@@ -187,14 +179,14 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected List<AlbumTrack> doInBackground(Void... voids) {
-      List<AlbumTrack> albumTrackList = new ArrayList<>();
-      albumTrackList = getAlbumTracks();
-      return albumTrackList;
+      List<AlbumTrack> mAlbumTrackList = new ArrayList<>();
+      mAlbumTrackList = getAlbumTracks();
+      return mAlbumTrackList;
     }
 
     @Override
     protected void onPostExecute(List<AlbumTrack> albumTracks) {
-      albumTrackList = albumTracks;
+      mAlbumTrackList = albumTracks;
       loadSelectedAlbum(albumTracks);
       showData();
     }
@@ -212,7 +204,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public List<AlbumTrack> getAlbumTracks() {
-      List<AlbumTrack> albumTrackList = new ArrayList<>();
+      List<AlbumTrack> mAlbumTrackList = new ArrayList<>();
       String trackId = null;
       String trackName = null;
       String trackDuration;
@@ -231,12 +223,12 @@ public class DetailActivity extends AppCompatActivity {
           trackDuration = minutes + "." + seconds;
           Track spotifyTrack = spotifyService.getTrack(trackId);
           trackPopularity = ((float) (spotifyTrack.popularity / 100.0) * 5);
-          albumTrackList.add(new AlbumTrack(trackId, trackName, trackDuration, trackPopularity));
+          mAlbumTrackList.add(new AlbumTrack(trackId, trackName, trackDuration, trackPopularity));
         }
       } catch (NullPointerException nP) {
         Log.d("SpotifyAlbum", nP.getMessage());
       }
-      return albumTrackList;
+      return mAlbumTrackList;
     }
 
   }
