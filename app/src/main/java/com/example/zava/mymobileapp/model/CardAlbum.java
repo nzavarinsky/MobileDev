@@ -12,13 +12,6 @@ public class CardAlbum {
     private int albumPopularity;
     private String albumReleaseDate;
 
-    /**
-     * Constructor for the instance variables.
-     * @param albumId
-     * @param albumImageURL
-     * @param albumName
-     * @param artistName
-     */
     public CardAlbum(String albumId, String albumName, String artistId, String artistName, String albumImageURL, int albumPopularity, String albumReleaseDate) {
         this.albumId = albumId;
         this.albumName = albumName;
@@ -28,6 +21,13 @@ public class CardAlbum {
         this.albumPopularity = albumPopularity;
         this.albumReleaseDate = albumReleaseDate;
     }
+
+  public CardAlbum(String albumName, String artistName, String albumImageURL, String albumReleaseDate) {
+    this.albumName = albumName;
+    this.artistName = artistName;
+    this.albumImageURL = albumImageURL;
+    this.albumReleaseDate = albumReleaseDate;
+  }
 
     public String getAlbumId() {
         return albumId;
