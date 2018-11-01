@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.zava.mymobileapp.model.ArtistAlbum;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -139,10 +140,7 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
     }
   }
 
-  @Override
-  public void onCardClick(int position) {
-    CardAlbum cardAlbum = mCardAlbumListData.get(position);
-
+  public void getStartIntent(CardAlbum cardAlbum) {
     Intent intent = new Intent(this, DetailActivity.class);
     Bundle bundle = new Bundle();
     bundle.putString(EXTRA_ALBUM_ID, cardAlbum.getAlbumId());
@@ -153,6 +151,12 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
     bundle.putString(EXTRA_SPOTIFY_ACCESS_TOKEN, getAccessToken());
     intent.putExtra(BUNDLE_EXTRA, bundle);
     startActivity(intent);
+  }
+
+  @Override
+  public void onCardClick(int position) {
+    CardAlbum cardAlbum = mCardAlbumListData.get(position);
+    getStartIntent(cardAlbum);
   }
 
 

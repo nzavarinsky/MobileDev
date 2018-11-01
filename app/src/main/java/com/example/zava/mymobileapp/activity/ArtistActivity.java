@@ -100,11 +100,7 @@ public class ArtistActivity extends AppCompatActivity implements ArtistAlbumsAda
     }
   }
 
-
-  @Override
-  public void onItemClick(int position) {
-    ArtistAlbum eachSingleArtistAlbum = mArtistAlbumList.get(position);
-
+  public void getStartIntent(ArtistAlbum eachSingleArtistAlbum){
     Intent intent = new Intent(this, DetailActivity.class);
     Bundle bundle = new Bundle();
     bundle.putString(EXTRA_ALBUM_ID, eachSingleArtistAlbum.getArtistAlbumId());
@@ -116,6 +112,12 @@ public class ArtistActivity extends AppCompatActivity implements ArtistAlbumsAda
     bundle.putString(EXTRA_SPOTIFY_ACCESS_TOKEN, getSpotifyAccessToken());
     intent.putExtra(BUNDLE_EXTRA, bundle);
     startActivity(intent);
+  }
+  
+  @Override
+  public void onItemClick(int position) {
+    ArtistAlbum eachSingleArtistAlbum = mArtistAlbumList.get(position);
+    getStartIntent(eachSingleArtistAlbum);
   }
 
 

@@ -71,11 +71,7 @@ public class FavouriteActivity extends AppCompatActivity implements CardAdapter.
     }
   }
 
-  @Override
-  public void onCardClick(int position) {
-    CardAlbum cardAlbum = mCardAlbumListData.get(position);
-
-
+  public void getStartIntent(CardAlbum cardAlbum) {
     Intent intent = new Intent(this, DetailActivity.class);
     Bundle bundle = new Bundle();
     bundle.putString(EXTRA_ALBUM_ID, cardAlbum.getAlbumId());
@@ -85,6 +81,12 @@ public class FavouriteActivity extends AppCompatActivity implements CardAdapter.
     bundle.putString(EXTRA_ALBUM_RELEASE_DATE, cardAlbum.getAlbumReleaseDate());
     intent.putExtra(BUNDLE_EXTRA, bundle);
     startActivity(intent);
+  }
+
+  @Override
+  public void onCardClick(int position) {
+    CardAlbum cardAlbum = mCardAlbumListData.get(position);
+    getStartIntent(cardAlbum);
   }
 
   @Override
