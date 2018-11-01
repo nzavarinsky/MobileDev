@@ -35,11 +35,6 @@ import kaaes.spotify.webapi.android.models.Pager;
 public class ArtistActivity extends AppCompatActivity implements ArtistAlbumsAdapter.ItemClickCallBack {
 
   private static final String BUNDLE_EXTRA = "BUNDLE_EXTRA";
-  private static final String EXTRA_ALBUM_ID = "EXTRA_ALBUM_ID";
-  private static final String EXTRA_ALBUM_NAME = "EXTRA_ALBUM_NAME";
-  private static final String EXTRA_ALBUM_IMAGE = "EXTRA_ALBUM_IMAGE";
-  private static final String EXTRA_ALBUM_ARTIST_NAME = "EXTRA_ALBUM_ARTIST_NAME";
-  private static final String EXTRA_ALBUM_RELEASE_DATE = "EXTRA_ALBUM_RELEASE_DATE";
   private static final String EXTRA_SPOTIFY_ACCESS_TOKEN = "EXTRA_SPOTIFY_ACCESS_TOKEN";
   private static final String EXTRA_ALBUM_ARTIST_ID = "EXTRA_ARTIST_ID";
 
