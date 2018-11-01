@@ -2,11 +2,7 @@ package com.example.zava.mymobileapp.adapters;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -14,28 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
+import com.example.zava.mymobileapp.R;
+import com.example.zava.mymobileapp.model.CardAlbum;
 import com.squareup.picasso.Picasso;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
-import com.example.zava.mymobileapp.model.CardAlbum;
-import com.example.zava.mymobileapp.R;
-
-import javax.xml.transform.Result;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
@@ -44,28 +28,28 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
   private LayoutInflater layoutInflater;
   private CardClickCallBack cardClickCallBack;
   private Context context;
-  public static final String ACTION_LIKE_IMAGE_DOUBLE_CLICKED = "action_like_image_button";
 
   public CardAdapter(List<CardAlbum> cardAlbumList, Context context) {
     this.cardAlbumList = cardAlbumList;
     this.context = context;
-    this.layoutInflater = layoutInflater.from(context);
+    this.layoutInflater = LayoutInflater.from(context);
   }
 
   public interface CardClickCallBack {
-    public void onCardClick(int position);
+    void onCardClick(int position);
 
-    public void onCardButtonClick(int position);
+    void onCardButtonClick(int position);
   }
 
   public void setCardClickCallBack(CardClickCallBack cardClickCallBack) {
     this.cardClickCallBack = cardClickCallBack;
   }
 
+  @NonNull
   @Override
-  public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View view = layoutInflater.inflate(R.layout.card_item, parent, false);
-    final CardViewHolder holder = new CardViewHolder(view);
+    new CardViewHolder(view);
     return new CardViewHolder(view);
   }
 
@@ -79,7 +63,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
   }
 
   @Override
-  public void onBindViewHolder(CardViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
     CardAlbum cardAlbum = cardAlbumList.get(position);
     //Picasso Experiment Begin
     Picasso.with(context).setLoggingEnabled(true);
@@ -90,24 +74,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     holder.button_aboutArtist.setText("About " + cardAlbum.getArtistName());
   }
 
-  private void goToFavourites(int position, Result result) {
-    notifyItemChanged(position, ACTION_LIKE_IMAGE_DOUBLE_CLICKED);
-    //TODO: create a callback to save result item in db as favourite
-  }
-
 
   @Override
   public int getItemCount() {
     return cardAlbumList.size();
   }
-
-  public CardAlbum getItem(int position) {
-    if (position != RecyclerView.NO_POSITION)
-      return cardAlbumList.get(position);
-    else
-      return null;
-  }
-
 
 
   class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -117,18 +88,15 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     private TextView textView_albumName;
     private TextView textView_artistName;
     private Button button_aboutArtist;
-    private ToggleButton mToggleButton;
     private View viewContainer;
-    private Context mContext;
-    public CardView mCardView;
 
-    public CardViewHolder(View itemView) {
+    CardViewHolder(View itemView) {
       super(itemView);
 
-      imageView_Avatar = (ImageView) itemView.findViewById(R.id.imageView_for_album_photo);
-      textView_albumName = (TextView) itemView.findViewById(R.id.textView_for_album_name);
-      textView_artistName = (TextView) itemView.findViewById(R.id.textView_for_artist_names);
-      button_aboutArtist = (Button) itemView.findViewById(R.id.button_for_about_artist);
+      imageView_Avatar = itemView.findViewById(R.id.imageView_for_album_photo);
+      textView_albumName = itemView.findViewById(R.id.textView_for_album_name);
+      textView_artistName =  itemView.findViewById(R.id.textView_for_artist_names);
+      button_aboutArtist = itemView.findViewById(R.id.button_for_about_artist);
       button_aboutArtist.setOnClickListener(this);
       viewContainer = itemView.findViewById(R.id.cardview_element);
       viewContainer.setOnClickListener(this);
@@ -146,7 +114,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
   class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
-    public MyMenuItemClickListener() {
+    MyMenuItemClickListener() {
     }
 
     @Override

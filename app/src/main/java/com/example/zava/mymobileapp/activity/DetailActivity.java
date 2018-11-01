@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zava.mymobileapp.DB.DBHelp;
+import com.example.zava.mymobileapp.db.DBHelp;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,57 +33,53 @@ import kaaes.spotify.webapi.android.models.TrackSimple;
 
 public class DetailActivity extends AppCompatActivity {
 
-  private static final String sBUNDLE_EXTRA = "sBUNDLE_EXTRA";
-  private static final String sEXTRA_ALBUM_ID = "sEXTRA_ALBUM_ID";
-  private static final String sEXTRA_ALBUM_NAME = "sEXTRA_ALBUM_NAME";
-  private static final String sEXTRA_ALBUM_IMAGE = "sEXTRA_ALBUM_IMAGE";
-  private static final String sEXTRA_ALBUM_ARTIST_NAME = "sEXTRA_ALBUM_ARTIST_NAME";
-  private static final String sEXTRA_ALBUM_RELEASE_DATE = "sEXTRA_ALBUM_RELEASE_DATE";
-  private static final String sEXTRA_SPOTIFY_ACCESS_TOKEN = "sEXTRA_SPOTIFY_ACCESS_TOKEN";
+  private static final String BUNDLE_EXTRA = "BUNDLE_EXTRA";
+  private static final String EXTRA_ALBUM_ID = "EXTRA_ALBUM_ID";
+  private static final String EXTRA_ALBUM_NAME = "EXTRA_ALBUM_NAME";
+  private static final String EXTRA_ALBUM_IMAGE = "EXTRA_ALBUM_IMAGE";
+  private static final String EXTRA_ALBUM_ARTIST_NAME = "EXTRA_ALBUM_ARTIST_NAME";
+  private static final String EXTRA_ALBUM_RELEASE_DATE = "EXTRA_ALBUM_RELEASE_DATE";
+  private static final String EXTRA_SPOTIFY_ACCESS_TOKEN = "EXTRA_SPOTIFY_ACCESS_TOKEN";
 
   private List<AlbumTrack> mAlbumTrackList;
   private RecyclerView mRecyclerView;
   private AlbumTrackAdapter mAlbumTrackAdapter;
-  private ProgressBar loadDetailActivity;
-  private TextView txtViewAlbumDetailAlbumName;
-  private TextView txtViewAlbumDetailArtistName;
-  private TextView txtViewAlbumDetailAlbumReleaseDate;
-  private ImageView imgViewAlbumDetailAlbumImage;
-  private Bundle extras;
-  private DBHelp dbHelp;
+  private ProgressBar mLoadDetailActivity;
+  private TextView mTxtViewAlbumDetailAlbumName;
+  private TextView mTxtViewAlbumDetailArtistName;
+  private TextView mTxtViewAlbumDetailAlbumReleaseDate;
+  private ImageView mImgViewAlbumDetailAlbumImage;
+  private Bundle mExtras;
+  private DBHelp mDbHelp;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail);
-    loadDetailActivity = (ProgressBar) findViewById(R.id.load_detailactivity);
-    txtViewAlbumDetailAlbumName = (TextView) findViewById(R.id.textView_album_detail_album_name);
-    txtViewAlbumDetailArtistName = (TextView) findViewById(R.id.textView_album_detail_artist_name);
-    txtViewAlbumDetailAlbumReleaseDate = (TextView) findViewById(R.id.textView_album_detail_album_release_date);
-    imgViewAlbumDetailAlbumImage = (ImageView) findViewById(R.id.imageView_album_detail_image);
-    mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_for_detail_activity_track_details);
-    extras = getIntent().getBundleExtra(sBUNDLE_EXTRA);
-    dbHelp = new DBHelp(this);
-    new SpotifyAlbum(extras.getString(sEXTRA_ALBUM_ID),
-        extras.getString(sEXTRA_SPOTIFY_ACCESS_TOKEN)).execute();
+    mLoadDetailActivity = findViewById(R.id.load_detailactivity);
+    mTxtViewAlbumDetailAlbumName = findViewById(R.id.textView_album_detail_album_name);
+    mTxtViewAlbumDetailArtistName =  findViewById(R.id.textView_album_detail_artist_name);
+    mTxtViewAlbumDetailAlbumReleaseDate =  findViewById(R.id.textView_album_detail_album_release_date);
+    mImgViewAlbumDetailAlbumImage =  findViewById(R.id.imageView_album_detail_image);
+    mRecyclerView =  findViewById(R.id.recyclerView_for_detail_activity_track_details);
+    mExtras = getIntent().getBundleExtra(BUNDLE_EXTRA);
+    mDbHelp = new DBHelp(this);
+    new SpotifyAlbum(mExtras.getString(EXTRA_ALBUM_ID),
+        mExtras.getString(EXTRA_SPOTIFY_ACCESS_TOKEN)).execute();
 
 
   }
 
-  public void loadSelectedAlbum(List<AlbumTrack> albumTracks) {
+  public void loadSelectedAlbum() {
     try {
-
-      //Picasso Experiment Begin
       Picasso.with(this).setLoggingEnabled(true);
-      Picasso.with(this).load(extras.getString(sEXTRA_ALBUM_IMAGE)).into
-          (imgViewAlbumDetailAlbumImage);
-      //Experiment Experiment End
-      txtViewAlbumDetailAlbumName.setText(extras.getString(sEXTRA_ALBUM_NAME));
-      txtViewAlbumDetailArtistName.setText(extras.getString
-          (sEXTRA_ALBUM_ARTIST_NAME));
-      txtViewAlbumDetailAlbumReleaseDate.setText(extras.getString
-          (sEXTRA_ALBUM_RELEASE_DATE));
-
+      Picasso.with(this).load(mExtras.getString(EXTRA_ALBUM_IMAGE)).into
+          (mImgViewAlbumDetailAlbumImage);
+      mTxtViewAlbumDetailAlbumName.setText(mExtras.getString(EXTRA_ALBUM_NAME));
+      mTxtViewAlbumDetailArtistName.setText(mExtras.getString
+          (EXTRA_ALBUM_ARTIST_NAME));
+      mTxtViewAlbumDetailAlbumReleaseDate.setText(mExtras.getString
+          (EXTRA_ALBUM_RELEASE_DATE));
       mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
       if (mAlbumTrackList.size() > 0) {
         mAlbumTrackAdapter = new AlbumTrackAdapter(mAlbumTrackList, this);
@@ -95,20 +91,20 @@ public class DetailActivity extends AppCompatActivity {
   }
 
   public void showProgress() {
-    loadDetailActivity.setVisibility(View.VISIBLE);
-    txtViewAlbumDetailAlbumName.setVisibility(View.INVISIBLE);
-    txtViewAlbumDetailArtistName.setVisibility(View.INVISIBLE);
-    txtViewAlbumDetailAlbumReleaseDate.setVisibility(View.INVISIBLE);
-    imgViewAlbumDetailAlbumImage.setVisibility(View.INVISIBLE);
+    mLoadDetailActivity.setVisibility(View.VISIBLE);
+    mTxtViewAlbumDetailAlbumName.setVisibility(View.INVISIBLE);
+    mTxtViewAlbumDetailArtistName.setVisibility(View.INVISIBLE);
+    mTxtViewAlbumDetailAlbumReleaseDate.setVisibility(View.INVISIBLE);
+    mImgViewAlbumDetailAlbumImage.setVisibility(View.INVISIBLE);
     mRecyclerView.setVisibility(View.INVISIBLE);
   }
 
   public void showData() {
-    loadDetailActivity.setVisibility(View.INVISIBLE);
-    txtViewAlbumDetailAlbumName.setVisibility(View.VISIBLE);
-    txtViewAlbumDetailArtistName.setVisibility(View.VISIBLE);
-    txtViewAlbumDetailAlbumReleaseDate.setVisibility(View.VISIBLE);
-    imgViewAlbumDetailAlbumImage.setVisibility(View.VISIBLE);
+    mLoadDetailActivity.setVisibility(View.INVISIBLE);
+    mTxtViewAlbumDetailAlbumName.setVisibility(View.VISIBLE);
+    mTxtViewAlbumDetailArtistName.setVisibility(View.VISIBLE);
+    mTxtViewAlbumDetailAlbumReleaseDate.setVisibility(View.VISIBLE);
+    mImgViewAlbumDetailAlbumImage.setVisibility(View.VISIBLE);
     mRecyclerView.setVisibility(View.VISIBLE);
   }
 
@@ -125,13 +121,13 @@ public class DetailActivity extends AppCompatActivity {
     switch (selectedItmId) {
       case (R.id.action_add_favourite):
         Toast.makeText(DetailActivity.this, "Add to favourites", Toast.LENGTH_SHORT).show();
-        String alb_name = extras.getString(sEXTRA_ALBUM_NAME);
-        String art_name = extras.getString(sEXTRA_ALBUM_ARTIST_NAME);
-        saveToDB(alb_name, art_name, extras.getString(sEXTRA_ALBUM_IMAGE), extras
-            .getString(sEXTRA_ALBUM_RELEASE_DATE));
+        String alb_name = mExtras.getString(EXTRA_ALBUM_NAME);
+        String art_name = mExtras.getString(EXTRA_ALBUM_ARTIST_NAME);
+        saveToDB(alb_name, art_name, mExtras.getString(EXTRA_ALBUM_IMAGE), mExtras
+            .getString(EXTRA_ALBUM_RELEASE_DATE));
         return true;
       case (R.id.remove_from_favourite):
-        removeFromDB(extras.getString(sEXTRA_ALBUM_IMAGE));
+        removeFromDB(mExtras.getString(EXTRA_ALBUM_IMAGE));
       default:
         return super.onOptionsItemSelected(item);
     }
@@ -141,7 +137,7 @@ public class DetailActivity extends AppCompatActivity {
   private void saveToDB(String albumName, String artistName, String
       albumImageURL, String albumReleaseDate) {
 
-    boolean insert = dbHelp.insert(albumName, artistName,
+    boolean insert = mDbHelp.insert(albumName, artistName,
         albumImageURL, albumReleaseDate);
     if (insert) {
       Toast.makeText(DetailActivity.this, "Add to favourites", Toast.LENGTH_SHORT).show();
@@ -149,7 +145,7 @@ public class DetailActivity extends AppCompatActivity {
   }
 
   private void removeFromDB(String albumImageURL) {
-    dbHelp.delete(albumImageURL);
+    mDbHelp.delete(albumImageURL);
     Toast.makeText(DetailActivity.this, "AdRemoved from favourites", Toast.LENGTH_SHORT).show();
   }
 
@@ -159,16 +155,16 @@ public class DetailActivity extends AppCompatActivity {
     private String spotifyAlbumId;
     private String spotifyAccessToken;
 
-    public SpotifyAlbum(String spotifyAlbumId, String spotifyAccessToken) {
+    SpotifyAlbum(String spotifyAlbumId, String spotifyAccessToken) {
       this.spotifyAlbumId = spotifyAlbumId;
       this.spotifyAccessToken = spotifyAccessToken;
     }
 
-    public String getSpotifyAlbumId() {
+    String getSpotifyAlbumId() {
       return spotifyAlbumId;
     }
 
-    public String getSpotifyAccessToken() {
+    String getSpotifyAccessToken() {
       return spotifyAccessToken;
     }
 
@@ -179,7 +175,7 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected List<AlbumTrack> doInBackground(Void... voids) {
-      List<AlbumTrack> mAlbumTrackList = new ArrayList<>();
+      List<AlbumTrack> mAlbumTrackList;
       mAlbumTrackList = getAlbumTracks();
       return mAlbumTrackList;
     }
@@ -187,11 +183,11 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onPostExecute(List<AlbumTrack> albumTracks) {
       mAlbumTrackList = albumTracks;
-      loadSelectedAlbum(albumTracks);
+      loadSelectedAlbum();
       showData();
     }
 
-    public SpotifyService getSpotifyService() {
+    SpotifyService getSpotifyService() {
       //Creates and configures a REST adapter for Spotify Web API.
       SpotifyApi wrapper = new SpotifyApi();
       if (!getSpotifyAccessToken().equals("") && getSpotifyAccessToken() != null) {
@@ -199,14 +195,13 @@ public class DetailActivity extends AppCompatActivity {
       } else {
         Log.d("SpotifyAlbum", "Invalid Access Token");
       }
-      SpotifyService spotifyService = wrapper.getService();
-      return spotifyService;
+      return wrapper.getService();
     }
 
-    public List<AlbumTrack> getAlbumTracks() {
+    List<AlbumTrack> getAlbumTracks() {
       List<AlbumTrack> mAlbumTrackList = new ArrayList<>();
-      String trackId = null;
-      String trackName = null;
+      String trackId;
+      String trackName;
       String trackDuration;
       float trackPopularity;
 
@@ -215,6 +210,7 @@ public class DetailActivity extends AppCompatActivity {
         Album spotifyAlbum = spotifyService.getAlbum(getSpotifyAlbumId());
         Pager<TrackSimple> trackSimplePager = spotifyAlbum.tracks;
         List<TrackSimple> simpleTrackList = trackSimplePager.items;
+
         for (TrackSimple simpleTrack : simpleTrackList) {
           trackId = simpleTrack.id;
           trackName = simpleTrack.name;

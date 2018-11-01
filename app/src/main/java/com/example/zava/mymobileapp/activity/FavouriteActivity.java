@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.example.zava.mymobileapp.DB.DBHelp;
+import com.example.zava.mymobileapp.db.DBHelp;
 import com.example.zava.mymobileapp.R;
 import com.example.zava.mymobileapp.adapters.CardAdapter;
 import com.example.zava.mymobileapp.model.CardAlbum;
@@ -17,27 +17,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FavouriteActivity extends AppCompatActivity implements CardAdapter.CardClickCallBack {
-  private static final String sBUNDLE_EXTRA = "sBUNDLE_EXTRA";
-  private static final String sEXTRA_ALBUM_ID = "sEXTRA_ALBUM_ID";
-  private static final String sEXTRA_ALBUM_NAME = "sEXTRA_ALBUM_NAME";
-  private static final String sEXTRA_ALBUM_IMAGE = "sEXTRA_ALBUM_IMAGE";
-  private static final String sEXTRA_ALBUM_ARTIST_NAME = "sEXTRA_ALBUM_ARTIST_NAME";
-  private static final String sEXTRA_ALBUM_RELEASE_DATE = "sEXTRA_ALBUM_RELEASE_DATE";
-  private static final String sEXTRA_SPOTIFY_ACCESS_TOKEN = "sEXTRA_SPOTIFY_ACCESS_TOKEN";
-  private static final String sEXTRA_ALBUM_ARTIST_ID = "EXTRA_ARTIST_ID";
+  private static final String BUNDLE_EXTRA = "BUNDLE_EXTRA";
+  private static final String EXTRA_ALBUM_ID = "EXTRA_ALBUM_ID";
+  private static final String EXTRA_ALBUM_NAME = "EXTRA_ALBUM_NAME";
+  private static final String EXTRA_ALBUM_IMAGE = "EXTRA_ALBUM_IMAGE";
+  private static final String EXTRA_ALBUM_ARTIST_NAME = "EXTRA_ALBUM_ARTIST_NAME";
+  private static final String EXTRA_ALBUM_RELEASE_DATE = "EXTRA_ALBUM_RELEASE_DATE";
+  private static final String EXTRA_ALBUM_ARTIST_ID = "EXTRA_ARTIST_ID";
 
   private RecyclerView mRecyclerView;
   private CardAdapter mCardAdapter;
   private List<CardAlbum> mCardAlbumListData;
-  private Cursor c;
 
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_favourite);
-    mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_for_favourite_activity);
-
+    mRecyclerView = findViewById(R.id.recyclerview_for_favourite_activity);
     loadFilms();
   }
 
@@ -58,8 +55,8 @@ public class FavouriteActivity extends AppCompatActivity implements CardAdapter.
     String albumName, artistName, albumImageURL, albumReleaseDate;
     DBHelp db = new DBHelp(this);
     CardAlbum cardAlbum;
-    c = db.queueAll();
-    mCardAlbumListData = new ArrayList<CardAlbum>();
+    Cursor c = db.queueAll();
+    mCardAlbumListData = new ArrayList<>();
     while (c.moveToNext()) {
       albumName = c.getString(0);
       artistName = c.getString(1);
@@ -81,12 +78,12 @@ public class FavouriteActivity extends AppCompatActivity implements CardAdapter.
 
     Intent intent = new Intent(this, DetailActivity.class);
     Bundle bundle = new Bundle();
-    bundle.putString(sEXTRA_ALBUM_ID, cardAlbum.getAlbumId());
-    bundle.putString(sEXTRA_ALBUM_NAME, cardAlbum.getAlbumName());
-    bundle.putString(sEXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
-    bundle.putString(sEXTRA_ALBUM_IMAGE, cardAlbum.getAlbumImageURL());
-    bundle.putString(sEXTRA_ALBUM_RELEASE_DATE, cardAlbum.getAlbumReleaseDate());
-    intent.putExtra(sBUNDLE_EXTRA, bundle);
+    bundle.putString(EXTRA_ALBUM_ID, cardAlbum.getAlbumId());
+    bundle.putString(EXTRA_ALBUM_NAME, cardAlbum.getAlbumName());
+    bundle.putString(EXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
+    bundle.putString(EXTRA_ALBUM_IMAGE, cardAlbum.getAlbumImageURL());
+    bundle.putString(EXTRA_ALBUM_RELEASE_DATE, cardAlbum.getAlbumReleaseDate());
+    intent.putExtra(BUNDLE_EXTRA, bundle);
     startActivity(intent);
   }
 
@@ -95,11 +92,9 @@ public class FavouriteActivity extends AppCompatActivity implements CardAdapter.
     CardAlbum cardAlbum = mCardAlbumListData.get(position);
     Intent intent = new Intent(this, ArtistActivity.class);
     Bundle bundle = new Bundle();
-    bundle.putString(sEXTRA_ALBUM_ARTIST_ID, cardAlbum.getArtistId());
-    bundle.putString(sEXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
-    intent.putExtra(sBUNDLE_EXTRA, bundle);
+    bundle.putString(EXTRA_ALBUM_ARTIST_ID, cardAlbum.getArtistId());
+    bundle.putString(EXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
+    intent.putExtra(BUNDLE_EXTRA, bundle);
     startActivity(intent);
-
   }
-
 }

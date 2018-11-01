@@ -36,33 +36,28 @@ import kaaes.spotify.webapi.android.models.Pager;
 
 public class AudioListActivity extends AppCompatActivity implements CardAdapter.CardClickCallBack {
 
-
   private static final String clientId = "973f03d1cf7b412eabf015fa6fa66b23";
   private static final String redirectUri = "spotify-meta-data-on-android://callback";
-
 
   private static final int request_Code = 1337;
 
   private static String accessToken;
 
-  private static final String sBUNDLE_EXTRA = "sBUNDLE_EXTRA";
-  private static final String sEXTRA_ALBUM_ID = "sEXTRA_ALBUM_ID";
-  private static final String sEXTRA_ALBUM_NAME = "sEXTRA_ALBUM_NAME";
-  private static final String sEXTRA_ALBUM_IMAGE = "sEXTRA_ALBUM_IMAGE";
-  private static final String sEXTRA_ALBUM_ARTIST_NAME = "sEXTRA_ALBUM_ARTIST_NAME";
-  private static final String sEXTRA_ALBUM_RELEASE_DATE = "sEXTRA_ALBUM_RELEASE_DATE";
-  private static final String sEXTRA_SPOTIFY_ACCESS_TOKEN = "sEXTRA_SPOTIFY_ACCESS_TOKEN";
-  private static final String sEXTRA_ALBUM_ARTIST_ID = "EXTRA_ARTIST_ID";
+  private static final String BUNDLE_EXTRA = "BUNDLE_EXTRA";
+  private static final String EXTRA_ALBUM_ID = "EXTRA_ALBUM_ID";
+  private static final String EXTRA_ALBUM_NAME = "EXTRA_ALBUM_NAME";
+  private static final String EXTRA_ALBUM_IMAGE = "EXTRA_ALBUM_IMAGE";
+  private static final String EXTRA_ALBUM_ARTIST_NAME = "EXTRA_ALBUM_ARTIST_NAME";
+  private static final String EXTRA_ALBUM_RELEASE_DATE = "EXTRA_ALBUM_RELEASE_DATE";
+  private static final String EXTRA_SPOTIFY_ACCESS_TOKEN = "EXTRA_SPOTIFY_ACCESS_TOKEN";
+  private static final String EXTRA_ALBUM_ARTIST_ID = "EXTRA_ARTIST_ID";
 
-  //Instance variables for the Main Activity.
   private RecyclerView mRecyclerView;
   private CardAdapter mCardAdapter;
   private List<CardAlbum> mCardAlbumListData;
-  private ProgressBar loadMainActivity;
-  private Toolbar toolbarMainActivity;
+  private ProgressBar mLoadMainActivity;
 
   public static String getAccessToken() {
-    System.out.println(accessToken);
     return accessToken;
   }
 
@@ -70,9 +65,9 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_audio_list);
-    loadMainActivity = (ProgressBar) findViewById(R.id.load_mainactivity);
-    mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_for_main_activity);
-    toolbarMainActivity = (Toolbar) findViewById(R.id.activity_main_toolbar);
+    mLoadMainActivity = findViewById(R.id.load_mainactivity);
+    mRecyclerView = findViewById(R.id.recyclerview_for_main_activity);
+    Toolbar toolbarMainActivity = findViewById(R.id.activity_main_toolbar);
     setSupportActionBar(toolbarMainActivity);
     AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder
         (clientId, AuthenticationResponse.Type.TOKEN, redirectUri);
@@ -88,7 +83,6 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
       AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
       if (response.getType() == AuthenticationResponse.Type.TOKEN) {
         accessToken = response.getAccessToken();
-      } else {
       }
     }
     new SpotifyNewRelease(accessToken).execute();
@@ -96,13 +90,13 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
 
 
   public void showProgress() {
-    loadMainActivity.setVisibility(View.VISIBLE);
+    mLoadMainActivity.setVisibility(View.VISIBLE);
     mRecyclerView.setVisibility(View.INVISIBLE);
   }
 
 
   public void showData() {
-    loadMainActivity.setVisibility(View.INVISIBLE);
+    mLoadMainActivity.setVisibility(View.INVISIBLE);
     mRecyclerView.setVisibility(View.VISIBLE);
   }
 
@@ -151,13 +145,13 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
 
     Intent intent = new Intent(this, DetailActivity.class);
     Bundle bundle = new Bundle();
-    bundle.putString(sEXTRA_ALBUM_ID, cardAlbum.getAlbumId());
-    bundle.putString(sEXTRA_ALBUM_NAME, cardAlbum.getAlbumName());
-    bundle.putString(sEXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
-    bundle.putString(sEXTRA_ALBUM_IMAGE, cardAlbum.getAlbumImageURL());
-    bundle.putString(sEXTRA_ALBUM_RELEASE_DATE, cardAlbum.getAlbumReleaseDate());
-    bundle.putString(sEXTRA_SPOTIFY_ACCESS_TOKEN, getAccessToken());
-    intent.putExtra(sBUNDLE_EXTRA, bundle);
+    bundle.putString(EXTRA_ALBUM_ID, cardAlbum.getAlbumId());
+    bundle.putString(EXTRA_ALBUM_NAME, cardAlbum.getAlbumName());
+    bundle.putString(EXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
+    bundle.putString(EXTRA_ALBUM_IMAGE, cardAlbum.getAlbumImageURL());
+    bundle.putString(EXTRA_ALBUM_RELEASE_DATE, cardAlbum.getAlbumReleaseDate());
+    bundle.putString(EXTRA_SPOTIFY_ACCESS_TOKEN, getAccessToken());
+    intent.putExtra(BUNDLE_EXTRA, bundle);
     startActivity(intent);
   }
 
@@ -168,11 +162,11 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
     CardAlbum cardAlbum = mCardAlbumListData.get(position);
     Intent intent = new Intent(this, ArtistActivity.class);
     Bundle bundle = new Bundle();
-    Bundle imgBundle = new Bundle();
-    bundle.putString(sEXTRA_ALBUM_ARTIST_ID, cardAlbum.getArtistId());
-    bundle.putString(sEXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
-    bundle.putString(sEXTRA_SPOTIFY_ACCESS_TOKEN, getAccessToken());
-    intent.putExtra(sBUNDLE_EXTRA, bundle);
+    new Bundle();
+    bundle.putString(EXTRA_ALBUM_ARTIST_ID, cardAlbum.getArtistId());
+    bundle.putString(EXTRA_ALBUM_ARTIST_NAME, cardAlbum.getArtistName());
+    bundle.putString(EXTRA_SPOTIFY_ACCESS_TOKEN, getAccessToken());
+    intent.putExtra(BUNDLE_EXTRA, bundle);
     startActivity(intent);
   }
 
@@ -182,15 +176,13 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
     private List<CardAlbum> cardAlbumList;
 
 
-    public SpotifyNewRelease(String accessToken) {
+    SpotifyNewRelease(String accessToken) {
       this.accessToken = accessToken;
     }
 
-
-    public String getAccessToken() {
+    String getAccessToken() {
       return accessToken;
     }
-
 
     @Override
     protected void onPreExecute() {
@@ -210,7 +202,7 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
       showData();
     }
 
-    public SpotifyService getSpotifyService() {
+    SpotifyService getSpotifyService() {
       //Creates and configures a REST adapter for Spotify Web API.
       SpotifyApi wrapper = new SpotifyApi();
       if (!getAccessToken().equals("") && getAccessToken() != null) {
@@ -218,23 +210,23 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
       } else {
         Log.d("SpotifyNewRelease", "Invalid Access Token");
       }
-      SpotifyService spotifyService = wrapper.getService();
+      SpotifyService spotifyService;
+      spotifyService = wrapper.getService();
       return spotifyService;
     }
 
-    public Album getSpotifyAlbumById(String albumId) {
+    Album getSpotifyAlbumById(String albumId) {
       SpotifyService spotifyService = getSpotifyService();
-      Album spotifyAlbum = spotifyService.getAlbum(albumId);
-      return spotifyAlbum;
+      return spotifyService.getAlbum(albumId);
     }
 
-    public List<CardAlbum> getNewReleasedAlbums() {
+    List<CardAlbum> getNewReleasedAlbums() {
       List<CardAlbum> cardAlbumList = new ArrayList<>();
-      String albumId = null;
+      String albumId;
       String artistId = null;
       String artistName = null;
       String albumImageURL = null;
-      String albumName = null;
+      String albumName;
       int albumPopularity;
       String albumReleaseDate;
 
@@ -259,8 +251,7 @@ public class AudioListActivity extends AppCompatActivity implements CardAdapter.
             artistId = simpleArtist.id;
             artistName = simpleArtist.name;
           }
-          //Getting the Album Image for CardAlbum
-          //We want to fetch the url for the image with largest dimension.
+
           List<Image> albumImages = simpleAlbum.images;
           int maxWidth = 0;
           for (Image albumImage : albumImages) {
