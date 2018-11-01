@@ -1,4 +1,4 @@
-package com.example.zava.mymobileapp.DB;
+package com.example.zava.mymobileapp.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,25 +9,26 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelp extends SQLiteOpenHelper {
 
-  private static String sDB_NAME = "Favourite";
-  private static String ALBUM_NAME = "albumName";
+  private static String DB_NAME = "Favourite";
   private static String ARTIST_NAME = "artistName";
   private static String ALBUM_IMAGE_URL = "albumImageURL";
   private static String ALBUM_RELEASE_DATE = "albumReleaseDate";
   private static String TABLE_NAME = "album";
+  private static String TEXT = "text";
+  private static String ALBUM_NAME = "albumName";
 
 
   public DBHelp(Context c) {
-    super(c, sDB_NAME, null, 1);
+    super(c, DB_NAME, null, 1);
   }
 
   @Override
   public void onCreate(SQLiteDatabase db) {
     db.execSQL("create table album( id INTEGER PRIMARY KEY AUTOINCREMENT," +
-        " albumName text, " +
-        "artistName text, " +
-        "albumImageURL text," +
-        " albumReleaseDate text)");
+        ALBUM_NAME + TEXT +","+
+        ARTIST_NAME + TEXT +","+
+        ALBUM_IMAGE_URL + TEXT +","+
+        ALBUM_RELEASE_DATE+TEXT+" )");
   }
 
   @Override
@@ -39,6 +40,7 @@ public class DBHelp extends SQLiteOpenHelper {
       albumImageURL, String albumReleaseDate) {
     SQLiteDatabase db = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
+    String ALBUM_NAME = "albumName";
     contentValues.put(ALBUM_NAME, albumName);
     contentValues.put(ARTIST_NAME, artistName);
     contentValues.put(ALBUM_IMAGE_URL, albumImageURL);
@@ -48,11 +50,11 @@ public class DBHelp extends SQLiteOpenHelper {
     return true;
   }
 
-  public boolean delete(String albumImageURL) {
+  public void delete(String albumImageURL) {
+    String[] argsForStatement = {albumImageURL};
+    String whereClause = "albumImageURL = ?";
     SQLiteDatabase db = this.getWritableDatabase();
-    String sql = String.format("delete from album where albumImageURL = '%s'", albumImageURL);
-    db.execSQL(sql);
-    return true;
+    db.delete(TABLE_NAME,whereClause,argsForStatement);
   }
 
   public Cursor queueAll() {
