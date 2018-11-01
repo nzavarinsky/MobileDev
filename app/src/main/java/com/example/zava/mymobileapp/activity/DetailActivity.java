@@ -1,5 +1,7 @@
 package com.example.zava.mymobileapp.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zava.mymobileapp.db.DBHelp;
+import com.example.zava.mymobileapp.model.ArtistAlbum;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -70,6 +73,22 @@ public class DetailActivity extends AppCompatActivity {
 
   }
 
+  public static Intent getStartIntent(Context context, ArtistAlbum eachSingleArtistAlbum, String
+      artistName, String accessToken){
+    Intent intent = new Intent(context, DetailActivity.class);
+    Bundle bundle = new Bundle();
+    bundle.putString(EXTRA_ALBUM_ID, eachSingleArtistAlbum.getArtistAlbumId());
+    bundle.putString(EXTRA_ALBUM_NAME, eachSingleArtistAlbum.getArtistAlbumName());
+    bundle.putString(EXTRA_ALBUM_IMAGE, eachSingleArtistAlbum.getArtistAlbumImageURL());
+    bundle.putString(EXTRA_ALBUM_ARTIST_NAME, artistName);
+    bundle.putString(EXTRA_ALBUM_RELEASE_DATE, eachSingleArtistAlbum
+        .getArtistAlbumReleaseDate());
+    bundle.putString(EXTRA_SPOTIFY_ACCESS_TOKEN, accessToken);
+    intent.putExtra(BUNDLE_EXTRA, bundle);
+    return intent;
+  }
+
+
   public void loadSelectedAlbum() {
     try {
       Picasso.with(this).setLoggingEnabled(true);
@@ -85,8 +104,7 @@ public class DetailActivity extends AppCompatActivity {
         mAlbumTrackAdapter = new AlbumTrackAdapter(mAlbumTrackList, this);
       }
       mRecyclerView.setAdapter(mAlbumTrackAdapter);
-    } catch (NullPointerException nP) {
-      Log.v("NullPointerException", nP.getMessage());
+    } finally {
     }
   }
 

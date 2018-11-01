@@ -1,5 +1,6 @@
 package com.example.zava.mymobileapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -95,29 +96,19 @@ public class ArtistActivity extends AppCompatActivity implements ArtistAlbumsAda
       }
       mRecyclerView.setAdapter(mArtistAlbumsAdapter);
       mArtistAlbumsAdapter.setItemClickCallBack(this);
-    } catch (NullPointerException nP) {
-      Log.v("NullPointerException", nP.getMessage());
+    } finally {
+
     }
   }
 
-  public void getStartIntent(ArtistAlbum eachSingleArtistAlbum){
-    Intent intent = new Intent(this, DetailActivity.class);
-    Bundle bundle = new Bundle();
-    bundle.putString(EXTRA_ALBUM_ID, eachSingleArtistAlbum.getArtistAlbumId());
-    bundle.putString(EXTRA_ALBUM_NAME, eachSingleArtistAlbum.getArtistAlbumName());
-    bundle.putString(EXTRA_ALBUM_IMAGE, eachSingleArtistAlbum.getArtistAlbumImageURL());
-    bundle.putString(EXTRA_ALBUM_ARTIST_NAME, mAlbumArtistData.getArtistName());
-    bundle.putString(EXTRA_ALBUM_RELEASE_DATE, eachSingleArtistAlbum
-        .getArtistAlbumReleaseDate());
-    bundle.putString(EXTRA_SPOTIFY_ACCESS_TOKEN, getSpotifyAccessToken());
-    intent.putExtra(BUNDLE_EXTRA, bundle);
-    startActivity(intent);
-  }
-  
+
   @Override
   public void onItemClick(int position) {
     ArtistAlbum eachSingleArtistAlbum = mArtistAlbumList.get(position);
-    getStartIntent(eachSingleArtistAlbum);
+    Intent intent = DetailActivity.getStartIntent(ArtistActivity.this,
+        eachSingleArtistAlbum,
+        mAlbumArtistData.getArtistName(),
+        getSpotifyAccessToken());
   }
 
 
