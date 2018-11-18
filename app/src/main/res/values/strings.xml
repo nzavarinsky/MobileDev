@@ -1,35 +1,32 @@
 <resources>
-  <string name="app_name">Mobile-programming</string>
+  <string name="app_name">Spotify</string>
 
-  <!-- Strings related to login -->
-  <string name="prompt_email">Email</string>
-  <string name="prompt_password">Password (optional)</string>
-  <string name="action_sign_in">Sign in or register</string>
-  <string name="action_sign_in_short">Sign in</string>
-  <string name="error_invalid_email">This email address is invalid</string>
-  <string name="error_invalid_password">This password is too short</string>
-  <string name="error_incorrect_password">This password is incorrect</string>
-  <string name="error_field_required">This field is required</string>
-  <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-  <string name="action_refresh">Refresh</string>
-  <string name="find_web">Find In Web</string>
-  <string name="share_new_release">Share</string>
-  <string name="badFirtsname">Введіть більше одного символа</string>
-  <string name="badLastname">Введіть більше одного символа</string>
-  <string name="badEmail">Введіть правильний емейл</string>
-  <string name="badPhone">Неправильний формат вводу мобільного телефону</string>
-  <string name="badPassword">Введіть більше 7 символів</string>
-  <string name="badPasswordConfirmation">Паролі не співпадають</string>
-  <string name="input_name">Enter your name</string>
-  <string name="say_hello">Say hello</string>
-  <string name="input_your_name">Input your name</string>
-  <string name="input_your_surname">Input your surname</string>
-  <string name="email">Email</string>
-  <string name="phone">Phone</string>
-  <string name="password">Password</string>
-  <string name="password_confirmation">Password confirmation</string>
-  <string name="show_users">Show users</string>
+  <string name="action_search">Search</string>
+  <string name="action_github">Github</string>
+
+
+  <string name="search_hint">Search Artist</string>
+  <string name="search_music_hint">Search artist</string>
+  <string name="search_artist_hint">Search artists.</string>
+
+  <string name="img_default">http://d2c87l0yth4zbw-2.global.ssl.fastly.net/i/_global/open-graph-default.png</string>
+
+  <string name="detail_top_tracks">Top 10 Tracks</string>
+  <string name="detail_title">Artist</string>
+  <string name="detail_subtitle">followers</string>
+  <string name="detail_hint_followers">%d Followers</string>
+  <string name="detail_hint_popularity">Popularity</string>
+  <string name="detail_hint_artist">Artist</string>
+  <string name="track_name_item">Track Name</string>
+  <string name="track_album_item">Album Track</string>
+
+  <plurals name="numberOfFollowers">
+    <item quantity="other">%d Followers</item>
+  </plurals>
+
+  <string name="error_artist_not_found">Artist not found, please check that the name is written in the right way</string>
+  <string name="error_tracks_not_found">Tracks not found, please check that the name is written in the right way</string>
+  <string name="error_internet_connection">Please check your Internet connection!</string>
+  <string name="error_server_internal">Something went wrong with the server.</string>
 
 </resources>
