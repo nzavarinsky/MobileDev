@@ -34,7 +34,7 @@ public class ArtistsPresenter extends Presenter<ArtistsPresenter.View> {
   public void onSearchArtist(String name) {
     getView().showLoading();
     Disposable disposable = interactor.searchArtists(name).subscribe(artists -> {
-      if (!artists.isEmpty() && artists.size() > 0) {
+      if (!artists.isEmpty()) {
         getView().hideLoading();
         getView().renderArtists(artists);
       } else {
