@@ -23,7 +23,7 @@ public class Constants {
   public static final String SPOTIFY_API = "https://api.spotify.com";
   public static final String API_KEY = "Authorization";
 
-  public static final String ACCESS_TOKEN = "Bearer BQCR3metDjjSnB2cPOGmknIx4wmr9zZhZW6SwxYtWJWSDITgoABNX0VyioP_nwr4V6wmhpcVXU-bOj5qSi0QBC5GBvRILFV5cmarIKUo9HN7j1MvCOHG3D-YV2w6lN3pojtkkbBXB39bHFUd0Kkh_ItnwXz50RfFAavSRTs6YTHQ_I5gMrFe5rMTZ3sHp2NfIcCmGTQZIIBZXD1GCSG8V5SfH17KbYi_nbdqfGqHd32cqN46qehT9yJtY8MFZNY9mQIXcERA66Vz_Kyu_-BAnLYvRHG7VwHIRLI";
+  public static final String ACCESS_TOKEN = "Bearer BQDa8e8Wq67BS9Pk0fq00NN9THQaufvllzKszWYgICmEb06zvwkYUfbX5wrmNSAW0UjKcQlWKzKcU1gs09hsabrb_5-7okWQ8HCz9yKbLkMuIWZywILjW93uXAs5vNiJ1eww08WQvonttzUKRih4tv27WUin82zaakbxVoJLdjLhb6daKf33ceSMOk0FCPiYLygaCqQMeRjhdoKCW1s4-uvK2PWxBJKw4SCLuic3K2xM4vlv9ePnChy5Xp2MIWRt7-uau-gOQQcP6mEPEm0lsWuFOqVe3oQkiks";
 
   public static final class Endpoint {
 
