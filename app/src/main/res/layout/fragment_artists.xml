@@ -17,7 +17,7 @@
         style="@style/Theme.AppTheme.Music.HeaderBar"
         >
 
-      <include layout="@layout/toolbar"/>
+      <include layout="@layout/artists_toolbar"/>
 
     </LinearLayout>
 

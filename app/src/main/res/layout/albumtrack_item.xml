@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical|left"
@@ -12,14 +12,14 @@
         android:src="@drawable/ic_audiotrack_black_24dp"
         android:id="@+id/tracks_imageView_track_icon"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:id="@+id/tracks_linearLayout_innerContainer">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -44,7 +44,7 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:visibility="visible"
                 android:id="@+id/tracks_textView_track_popularity"/>
-        </LinearLayout>
+        </ConstraintLayout>
 
         <TextView
             android:text="Dummy Duration"
@@ -56,6 +56,6 @@
             android:layout_weight="1"
             android:id="@+id/tracks_textView_track_duration"/>
 
-    </LinearLayout>
+    </ConstraintLayout>
 
-</LinearLayout>
+</ConstraintLayout>
