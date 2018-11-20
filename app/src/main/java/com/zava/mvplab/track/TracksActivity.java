@@ -1,5 +1,5 @@
 
-package com.zava.mvplab.view.activity;
+package com.zava.mvplab.track;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -21,11 +21,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.zava.mvplab.data.api.client.SpotifyClient;
-import com.zava.mvplab.data.model.Artist;
-import com.zava.mvplab.data.model.Track;
-import com.zava.mvplab.interactor.TracksInteractor;
-import com.zava.mvplab.presenter.TracksPresenter;
-import com.zava.mvplab.view.adapter.TracksAdapter;
+import com.zava.mvplab.artist.Artist;
 //import com.zava.mvplab.view.fragment.PlayerFragment;
 import com.zava.mvplab.view.utils.BlurEffectUtils;
 
@@ -44,18 +40,18 @@ public class TracksActivity extends AppCompatActivity
   public static final String EXTRA_TRACK_POSITION = "EXTRA_TRACK_POSITION";
   public static final String EXTRA_TRACKS = "EXTRA_TRACKS";
 
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.appbar_artist) AppBarLayout appbar_artist;
-  @BindView(R.id.iv_collapsing_artist) ImageView iv_collapsing_artist;
-  @BindView(R.id.civ_artist) CircleImageView civ_artist;
-  @BindView(R.id.txt_title_artist) TextView txt_title_artist;
-  @BindView(R.id.txt_title_tracks) TextView txt_title_tracks;
-  @BindView(R.id.txt_followers_artist) TextView txt_followers_artist;
-  @BindView(R.id.txt_subtitle_artist) TextView txt_subtitle_artist;
-  @BindView(R.id.rv_tracks) RecyclerView rv_tracks;
-  @BindView(R.id.pv_tracks) ProgressBar pv_tracks;
-  @BindView(R.id.iv_tracks) ImageView iv_tracks;
-  @BindView(R.id.txt_line_tracks) TextView txt_line_tracks;
+  public @BindView(R.id.toolbar) Toolbar toolbar;
+  public @BindView(R.id.appbar_artist) AppBarLayout appbar_artist;
+  public @BindView(R.id.iv_collapsing_artist) ImageView iv_collapsing_artist;
+  public @BindView(R.id.civ_artist) CircleImageView civ_artist;
+  public @BindView(R.id.txt_title_artist) TextView txt_title_artist;
+  public @BindView(R.id.txt_title_tracks) TextView txt_title_tracks;
+  public @BindView(R.id.txt_followers_artist) TextView txt_followers_artist;
+  public @BindView(R.id.txt_subtitle_artist) TextView txt_subtitle_artist;
+  public @BindView(R.id.rv_tracks) RecyclerView rv_tracks;
+  public @BindView(R.id.pv_tracks) ProgressBar pv_tracks;
+  public @BindView(R.id.iv_tracks) ImageView iv_tracks;
+  public @BindView(R.id.txt_line_tracks) TextView txt_line_tracks;
 
   private TracksPresenter tracksPresenter;
 

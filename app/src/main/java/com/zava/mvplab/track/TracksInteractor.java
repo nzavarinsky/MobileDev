@@ -1,9 +1,9 @@
 
 
-package com.zava.mvplab.interactor;
+package com.zava.mvplab.track;
 
 import com.zava.mvplab.data.api.client.SpotifyService;
-import com.zava.mvplab.data.model.Track;
+import com.zava.mvplab.track.Track;
 
 import java.util.List;
 

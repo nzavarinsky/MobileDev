@@ -1,9 +1,8 @@
 
 
-package com.zava.mvplab.presenter;
+package com.zava.mvplab.track;
 
-import com.zava.mvplab.data.model.Track;
-import com.zava.mvplab.interactor.TracksInteractor;
+import com.zava.mvplab.artist.Presenter;
 
 import java.util.List;
 

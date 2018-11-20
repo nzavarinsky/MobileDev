@@ -1,9 +1,6 @@
 
 
-package com.zava.mvplab.presenter;
-
-import com.zava.mvplab.data.model.Artist;
-import com.zava.mvplab.interactor.ArtistsInteractor;
+package com.zava.mvplab.artist;
 
 import java.util.List;
 

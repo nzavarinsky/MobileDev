@@ -8,7 +8,7 @@
     >
 
   <fragment
-      class="com.zava.mvplab.view.fragment.ArtistsFragment"
+      class="com.zava.mvplab.artist.ArtistsFragment"
       android:id="@+id/music_fragment"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

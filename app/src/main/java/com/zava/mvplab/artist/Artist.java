@@ -1,10 +1,11 @@
 
-package com.zava.mvplab.data.model;
+package com.zava.mvplab.artist;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.zava.mvplab.track.Followers;
 
 import java.util.ArrayList;
 import java.util.List;

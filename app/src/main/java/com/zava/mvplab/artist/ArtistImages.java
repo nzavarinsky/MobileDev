@@ -1,6 +1,6 @@
 
 
-package com.zava.mvplab.data.model;
+package com.zava.mvplab.artist;
 
 import android.os.Parcel;
 import android.os.Parcelable;

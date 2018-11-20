@@ -1,11 +1,10 @@
 
 
-package com.zava.mvplab.view.fragment;
+package com.zava.mvplab.artist;
 
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,11 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.zava.mvplab.data.api.client.SpotifyClient;
-import com.zava.mvplab.data.model.Artist;
-import com.zava.mvplab.interactor.ArtistsInteractor;
-import com.zava.mvplab.presenter.ArtistsPresenter;
-import com.zava.mvplab.view.activity.TracksActivity;
-import com.zava.mvplab.view.adapter.ArtistsAdapter;
+import com.zava.mvplab.track.TracksActivity;
 
 import java.util.List;
 
@@ -41,12 +36,12 @@ import com.zava.mvplab.R;
 public class ArtistsFragment extends Fragment
     implements ArtistsPresenter.View, SearchView.OnQueryTextListener {
 
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.rv_artists) RecyclerView rv_artist;
-  @BindView(R.id.pv_artists) ProgressBar pv_artists;
-  @BindView(R.id.iv_artists) ImageView iv_artists;
-  @BindView(R.id.txt_line_artists) TextView txt_line_artists;
-  @BindView(R.id.txt_subline_artists) TextView txt_sub_line_artists;
+  public @BindView(R.id.toolbar) Toolbar toolbar;
+  public @BindView(R.id.rv_artists) RecyclerView rv_artist;
+  public @BindView(R.id.pv_artists) ProgressBar pv_artists;
+  public @BindView(R.id.iv_artists) ImageView iv_artists;
+  public @BindView(R.id.txt_line_artists) TextView txt_line_artists;
+  public @BindView(R.id.txt_subline_artists) TextView txt_sub_line_artists;
 
   private ArtistsPresenter artistsPresenter;
 
@@ -162,7 +157,7 @@ public class ArtistsFragment extends Fragment
     }
   }
 
-  private void setupRecyclerView() {
+  public void setupRecyclerView() {
     ArtistsAdapter adapter = new ArtistsAdapter();
     adapter.setItemClickListener(
         (Artist artist, int position) -> artistsPresenter.launchArtistDetail(artist));

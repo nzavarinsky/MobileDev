@@ -1,5 +1,5 @@
 
-package com.zava.mvplab.view.activity;
+package com.zava.mvplab.artist;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

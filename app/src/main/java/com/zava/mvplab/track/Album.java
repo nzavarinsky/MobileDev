@@ -1,8 +1,9 @@
 
 
-package com.zava.mvplab.data.model;
+package com.zava.mvplab.track;
 
 import com.google.gson.annotations.SerializedName;
+import com.zava.mvplab.artist.ArtistImages;
 
 import java.util.List;
 

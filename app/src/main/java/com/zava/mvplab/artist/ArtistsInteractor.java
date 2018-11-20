@@ -1,9 +1,9 @@
 
 
-package com.zava.mvplab.interactor;
+package com.zava.mvplab.artist;
 
 import com.zava.mvplab.data.api.client.SpotifyService;
-import com.zava.mvplab.data.model.Artist;
+import com.zava.mvplab.artist.Artist;
 
 import java.util.List;
 

@@ -1,13 +1,13 @@
 
 
-package com.zava.mvplab.presenter;
+package com.zava.mvplab.artist;
 
 import android.content.Context;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-abstract class Presenter<T extends Presenter.View> {
+public abstract class Presenter<T extends Presenter.View> {
 
   private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -33,7 +33,7 @@ abstract class Presenter<T extends Presenter.View> {
     compositeDisposable.add(disposable);
   }
 
-  private void dispose() {
+  public void dispose() {
     if (!compositeDisposable.isDisposed()) {
       compositeDisposable.dispose();
     }
