@@ -12,24 +12,24 @@ import static com.zava.mvplab.data.api.Constants.Serialized.NAME;
 
 public class Album {
   @SerializedName(NAME)
-  public String albumName;
+  private String mAlbumName;
   @SerializedName(IMAGES)
-  public List<com.zava.mvplab.artist.model.ArtistImage> trackImages;
+  private List<com.zava.mvplab.artist.model.ArtistImage> mTrackImages;
 
   public String getAlbumName() {
-    return albumName;
+    return mAlbumName;
   }
 
-  public void setAlbumName(String albumName) {
-    this.albumName = albumName;
+  public void setAlbumName(String mAlbumName) {
+    this.mAlbumName = mAlbumName;
   }
 
   public List<ArtistImage> getTrackImages() {
-    return trackImages;
+    return mTrackImages;
   }
 
-  public void setTrackImages(List<ArtistImage> trackImages) {
-    this.trackImages = trackImages;
+  public void setTrackImages(List<ArtistImage> mTrackImages) {
+    this.mTrackImages = mTrackImages;
   }
 
 }

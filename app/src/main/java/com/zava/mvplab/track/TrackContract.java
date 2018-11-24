@@ -1,5 +1,9 @@
 package com.zava.mvplab.track;
 
+import android.content.Context;
+import android.content.Intent;
+
+import com.zava.mvplab.artist.Artist;
 import com.zava.mvplab.track.model.Track;
 
 import java.util.List;
@@ -25,12 +29,14 @@ public interface TrackContract {
     void renderTracks(List<Track> tracks);
 
     void launchTrackDetail(List<Track> tracks, Track track, int position);
+
+     Intent getStartIntent(Context context, List<Track> tracks, Track track, int position);
   }
 
   interface Presenter {
     void onSearchTracks(String string);
 
-    void launchArtistDetail(List<Track> tracks, Track track, int position);
+    void launchTrackDetail(List<Track> tracks, Track track, int position);
   }
 
   interface Interactor {

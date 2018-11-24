@@ -25,16 +25,16 @@ public class TracksPresenter extends com.zava.mvplab.base.Presenter<com.zava.mvp
   public void onSearchTracks(String string) {
     getView().showLoading();
     interactor.loadData(string).subscribe(tracks -> {
-      if (!tracks.isEmpty() && tracks.size() > 0) {
+      if (tracks.isEmpty()) {
+        getView().showTracksNotFoundMessage();
+      } else {
         getView().hideLoading();
         getView().renderTracks(tracks);
-      } else {
-        getView().showTracksNotFoundMessage();
       }
     }, Throwable::printStackTrace);
   }
 
-  public void launchArtistDetail(List<Track> tracks, Track track, int position) {
+  public void launchTrackDetail(List<Track> tracks, Track track, int position) {
     getView().launchTrackDetail(tracks, track, position);
   }
 }

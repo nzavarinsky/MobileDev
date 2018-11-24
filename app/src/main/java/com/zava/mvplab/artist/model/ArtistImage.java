@@ -24,14 +24,14 @@ public class ArtistImage implements Parcelable {
     }
   };
 
-  @SerializedName(HEIGHT) private int heigth;
-  @SerializedName(URL) public String url;
-  @SerializedName(WIDTH) private int width;
+  @SerializedName(HEIGHT) private int mHeight;
+  @SerializedName(URL) public String mUrl;
+  @SerializedName(WIDTH) private int mWidth;
 
   private ArtistImage(Parcel in) {
-    this.heigth = in.readInt();
-    this.url = in.readString();
-    this.width = in.readInt();
+    this.mHeight = in.readInt();
+    this.mUrl = in.readString();
+    this.mWidth = in.readInt();
   }
 
   @Override public int describeContents() {
@@ -39,8 +39,8 @@ public class ArtistImage implements Parcelable {
   }
 
   @Override public void writeToParcel(Parcel parcel, int i) {
-    parcel.writeInt(this.heigth);
-    parcel.writeString(this.url);
-    parcel.writeInt(this.width);
+    parcel.writeInt(this.mHeight);
+    parcel.writeString(this.mUrl);
+    parcel.writeInt(this.mWidth);
   }
 }

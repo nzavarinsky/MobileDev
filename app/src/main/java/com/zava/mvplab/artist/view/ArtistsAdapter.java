@@ -21,13 +21,14 @@ import com.zava.mvplab.data.api.Constants;
 
 public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsViewHolder> {
 
-  private List<com.zava.mvplab.artist.model.Artist> artists;
-  private ItemClickListener itemClickListener;
+  private List<com.zava.mvplab.artist.model.Artist> artists = Collections.emptyList();
+  private ItemClickListener mItemClickListener;
 
-  public ArtistsAdapter() {
-    artists = Collections.emptyList();
+
+  ArtistsAdapter() {
   }
 
+  @NonNull
   @Override
   public ArtistsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     final View itemView =
@@ -39,7 +40,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
   public void onBindViewHolder(@NonNull ArtistsViewHolder holder, int position) {
     com.zava.mvplab.artist.model.Artist artist = artists.get(position);
     holder.artist = artist;
-    holder.textView.setText(artist.name);
+    holder.textView.setText(artist.mName);
 
     if (artist.mArtistImages.isEmpty()) {
       setDefaultImage(holder);
@@ -47,8 +48,8 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
       putImages(holder, position);
     }
     holder.itemView.setOnClickListener((View view) -> {
-      if (itemClickListener != null) {
-        itemClickListener.onItemClick(artist, position);
+      if (mItemClickListener != null) {
+        mItemClickListener.onItemClick(artist, position);
       }
     });
   }
@@ -60,7 +61,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
     for (int i = 0; i < artist.mArtistImages.size(); i++) {
       if (artist.mArtistImages.get(i) != null && artist.mArtistImages.size() > 0) {
         Picasso.with(holder.imageView.getContext())
-            .load(artist.mArtistImages.get(0).url)
+            .load(artist.mArtistImages.get(0).mUrl)
             .into(holder.imageView);
       }
     }
@@ -81,8 +82,8 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
     this.artists = artists;
   }
 
-  void setItemClickListener(ItemClickListener itemClickListener) {
-    this.itemClickListener = itemClickListener;
+  void setItemClickListener(ItemClickListener mItemClickListener) {
+    this.mItemClickListener = mItemClickListener;
   }
 
   public interface ItemClickListener {

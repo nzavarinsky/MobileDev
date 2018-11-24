@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +17,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,11 +48,11 @@ public class ArtistsFragment extends Fragment
   TextView artist_info_textView;
   public @BindView(R.id.txt_subline_artists)
   TextView artist_description_textView;
+  private static final String BUNDLE_EXTRA = "BUNDLE_EXTRA";
 
   private com.zava.mvplab.artist.ArtistsPresenter artistsPresenter;
 
   public ArtistsFragment() {
-    setHasOptionsMenu(true);
   }
 
   @Override
@@ -62,6 +60,7 @@ public class ArtistsFragment extends Fragment
     super.onCreate(savedInstanceState);
     artistsPresenter = new com.zava.mvplab.artist.ArtistsPresenter(new com.zava.mvplab.artist.ArtistsInteractor(new SpotifyClient()));
     artistsPresenter.setView(this);
+    setHasOptionsMenu(true);
   }
 
   @Nullable
@@ -97,11 +96,6 @@ public class ArtistsFragment extends Fragment
   }
 
   @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    return super.onOptionsItemSelected(item);
-  }
-
-  @Override
   public boolean onQueryTextSubmit(String query) {
     artistsPresenter.onSearchArtist(query);
     return true;
@@ -133,7 +127,7 @@ public class ArtistsFragment extends Fragment
     artist_info_textView.setVisibility(View.VISIBLE);
     artist_imageView.setVisibility(View.VISIBLE);
     artist_info_textView.setText(getString(R.string.error_artist_not_found));
-    artist_imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.mipmap.ic_not_found));
+    artist_imageView.setImageResource(R.mipmap.ic_not_found);
   }
 
   @Override
@@ -142,7 +136,7 @@ public class ArtistsFragment extends Fragment
     artist_info_textView.setVisibility(View.VISIBLE);
     artist_imageView.setVisibility(View.VISIBLE);
     artist_info_textView.setText(getString(R.string.error_internet_connection));
-    artist_imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.mipmap.ic_not_internet));
+    artist_imageView.setImageResource(R.mipmap.ic_not_internet);
   }
 
   @Override
@@ -151,7 +145,7 @@ public class ArtistsFragment extends Fragment
     artist_info_textView.setVisibility(View.VISIBLE);
     artist_imageView.setVisibility(View.VISIBLE);
     artist_info_textView.setText(getString(R.string.error_server_internal));
-    artist_imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.mipmap.ic_not_found));
+    artist_imageView.setImageResource(R.mipmap.ic_not_found);
   }
 
   @Override
@@ -184,15 +178,16 @@ public class ArtistsFragment extends Fragment
   public void setupRecyclerView() {
     ArtistsAdapter adapter = new ArtistsAdapter();
     adapter.setItemClickListener(
-        (com.zava.mvplab.artist.model.Artist artist, int position) -> artistsPresenter.launchArtistDetail(artist));
+        (com.zava.mvplab.artist.model.Artist artist, int position) -> artistsPresenter
+            .launchArtistDetail(getContext(),artist));
     artist_recyclerView.setAdapter(adapter);
   }
 
   @Override
-  public void launchArtistDetail(com.zava.mvplab.artist.model.Artist artist) {
-    Intent intent = new Intent(getContext(), TracksActivity.class);
+  public Intent getStartIntent(Context context, com.zava.mvplab.artist.Artist artist) {
+    Intent intent = new Intent(context, TracksActivity.class);
     intent.putExtra(TracksActivity.EXTRA_REPOSITORY, artist);
-    startActivity(intent);
+    return intent;
   }
 
   @Override

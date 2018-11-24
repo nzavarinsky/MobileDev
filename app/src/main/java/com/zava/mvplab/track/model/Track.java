@@ -27,13 +27,13 @@ public class Track implements Parcelable {
 
   @SerializedName(NAME) public String name;
   @SerializedName(PREVIEW_URL) public String preview_url;
-  @SerializedName(TRACK_NUMBER) private int track_number;
+  @SerializedName(TRACK_NUMBER) private int mTrackNumber;
   @SerializedName(ALBUM) public Album album;
 
   protected Track(Parcel in) {
     this.name = in.readString();
     this.preview_url = in.readString();
-    this.track_number = in.readInt();
+    this.mTrackNumber = in.readInt();
   }
 
   @Override public int describeContents() {
@@ -43,6 +43,6 @@ public class Track implements Parcelable {
   @Override public void writeToParcel(Parcel parcel, int i) {
     parcel.writeString(this.name);
     parcel.writeString(this.preview_url);
-    parcel.writeInt(this.track_number);
+    parcel.writeInt(this.mTrackNumber);
   }
 }

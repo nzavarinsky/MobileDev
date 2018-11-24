@@ -23,16 +23,16 @@ public class Followers implements Parcelable {
     }
   };
 
-  @SerializedName(HREF) private String href;
+  @SerializedName(HREF) private String mHref;
   @SerializedName(TOTAL) public int totalFollowers;
 
   private Followers(Parcel in) {
-    this.href = in.readString();
+    this.mHref = in.readString();
     this.totalFollowers = in.readInt();
   }
 
   @Override public void writeToParcel(Parcel parcel, int i) {
-    parcel.writeString(this.href);
+    parcel.writeString(this.mHref);
     parcel.writeInt(this.totalFollowers);
   }
 

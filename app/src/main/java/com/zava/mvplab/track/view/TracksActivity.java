@@ -2,7 +2,9 @@
 package com.zava.mvplab.track.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -17,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.zava.mvplab.artist.view.ArtistsActivity;
 import com.zava.mvplab.data.api.Constants;
 import com.zava.mvplab.data.api.client.SpotifyClient;
 import com.zava.mvplab.artist.model.Artist;
@@ -79,7 +82,7 @@ public class TracksActivity extends AppCompatActivity
     Artist artist = getIntent().getParcelableExtra(EXTRA_REPOSITORY);
     initializeViews(artist);
 
-    tracksPresenter.onSearchTracks(artist.id);
+    tracksPresenter.onSearchTracks(artist.mId);
   }
 
   @Override
@@ -126,6 +129,15 @@ public class TracksActivity extends AppCompatActivity
   }
 
   @Override
+  public Intent getStartIntent(Context context, List<Track> tracks, Track track, int position) {
+    Intent intent = new Intent(context, ArtistsActivity.class);
+    intent.putExtra(TracksActivity.EXTRA_REPOSITORY, (Parcelable) tracks);
+    intent.putExtra(TracksActivity.EXTRA_REPOSITORY,track);
+    intent.putExtra(TracksActivity.EXTRA_REPOSITORY,position);
+    return intent;
+  }
+
+  @Override
   public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
     onOffsetChangedState(appBarLayout, verticalOffset);
   }
@@ -160,7 +172,7 @@ public class TracksActivity extends AppCompatActivity
     recyclerView_tracks.setLayoutManager(linearLayoutManager);
     TracksAdapter adapter = new TracksAdapter();
     adapter.setItemClickListener(
-        (tracks, track, position) -> tracksPresenter.launchArtistDetail(tracks, track, position));
+        (tracks, track, position) -> tracksPresenter.launchTrackDetail(tracks, track, position));
     recyclerView_tracks.setAdapter(adapter);
 
     appbar_artist.addOnOffsetChangedListener(this);
@@ -187,17 +199,17 @@ public class TracksActivity extends AppCompatActivity
           .into(imageView_collaplsedArtist);
     } else {
       Picasso.with(this)
-          .load(artist.mArtistImages.get(0).url)
+          .load(artist.mArtistImages.get(0).mUrl)
           .transform(new BlurEffectUtils(this, 20))
           .into(imageView_collaplsedArtist);
-      Picasso.with(this).load(artist.mArtistImages.get(0).url).into(circleImageView_artist);
+      Picasso.with(this).load(artist.mArtistImages.get(0).mUrl).into(circleImageView_artist);
     }
 
 
-    textView_artist.setText(artist.name);
-    textView_subTitle.setText(artist.name);
+    textView_artist.setText(artist.mName);
+    textView_subTitle.setText(artist.mName);
     String totalFollowers = getResources().getQuantityString(R.plurals.numberOfFollowers,
-        artist.followers.totalFollowers, artist.followers.totalFollowers);
+        artist.mFollowers.totalFollowers, artist.mFollowers.totalFollowers);
     textView_followers.setText(totalFollowers);
   }
 

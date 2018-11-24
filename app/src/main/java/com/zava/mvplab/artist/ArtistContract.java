@@ -1,9 +1,9 @@
 package com.zava.mvplab.artist;
 
-/**
- * Created by Andrii Medvid on 11/21/18.
- * Copyright (c) 2018, LadbrokesCoral. All rights reserved.
- */
+import android.content.Context;
+import android.content.Intent;
+
+
 public interface ArtistContract {
 
     interface View extends com.zava.mvplab.base.Presenter.View {
@@ -20,11 +20,12 @@ public interface ArtistContract {
 
         void renderArtists(java.util.List<com.zava.mvplab.artist.model.Artist> artists);
 
-        void launchArtistDetail(com.zava.mvplab.artist.model.Artist artist);
+
+        Intent getStartIntent(Context context, Artist artist);
     }
 
     interface Presenter {
-        void launchArtistDetail(com.zava.mvplab.artist.model.Artist artist);
+        void launchArtistDetail(Context context,Artist artist);
 
         void onSearchArtist(String name);
     }

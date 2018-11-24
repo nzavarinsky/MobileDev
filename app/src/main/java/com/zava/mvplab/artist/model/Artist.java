@@ -17,7 +17,7 @@ import static com.zava.mvplab.data.api.Constants.Serialized.IMAGES;
 import static com.zava.mvplab.data.api.Constants.Serialized.NAME;
 import static com.zava.mvplab.data.api.Constants.Serialized.POPULARITY;
 
-public class Artist implements Parcelable {
+public class Artist extends com.zava.mvplab.artist.Artist implements Parcelable {
 
   public static final Creator<Artist> CREATOR = new Creator<Artist>() {
 
@@ -30,22 +30,22 @@ public class Artist implements Parcelable {
     }
   };
 
-  @SerializedName(FOLLOWERS) public Followers followers;
-  @SerializedName(HREF) private String href;
-  @SerializedName(ID) public String id;
+  @SerializedName(FOLLOWERS) public Followers mFollowers;
+  @SerializedName(HREF) private String mHref;
+  @SerializedName(ID) public String mId;
   @SerializedName(IMAGES) public List<ArtistImage> mArtistImages;
-  @SerializedName(NAME) public String name;
-  @SerializedName(POPULARITY) private int popularity;
+  @SerializedName(NAME) public String mName;
+  @SerializedName(POPULARITY) private int mPopularity;
 
   public Artist() {
   }
 
   protected Artist(Parcel in) {
-    this.href = in.readString();
-    this.id = in.readString();
-    this.name = in.readString();
-    this.followers = in.readParcelable(Followers.class.getClassLoader());
-    this.popularity = in.readInt();
+    this.mHref = in.readString();
+    this.mId = in.readString();
+    this.mName = in.readString();
+    this.mFollowers = in.readParcelable(Followers.class.getClassLoader());
+    this.mPopularity = in.readInt();
 
     if (this.mArtistImages == null) {
       this.mArtistImages = new ArrayList();
@@ -58,11 +58,11 @@ public class Artist implements Parcelable {
   }
 
   @Override public void writeToParcel(Parcel parcel, int i) {
-    parcel.writeString(this.href);
-    parcel.writeString(this.id);
-    parcel.writeString(this.name);
-    parcel.writeParcelable(this.followers, 0);
-    parcel.writeInt(this.popularity);
+    parcel.writeString(this.mHref);
+    parcel.writeString(this.mId);
+    parcel.writeString(this.mName);
+    parcel.writeParcelable(this.mFollowers, 0);
+    parcel.writeInt(this.mPopularity);
     parcel.writeTypedList(this.mArtistImages);
   }
 }

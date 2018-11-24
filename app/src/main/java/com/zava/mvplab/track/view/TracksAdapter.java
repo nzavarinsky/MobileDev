@@ -2,6 +2,7 @@
 
 package com.zava.mvplab.track.view;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,29 +25,30 @@ import com.zava.mvplab.track.model.Track;
 
 public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TracksViewHolder> {
 
-  private List<Track> tracks;
-  private ItemClickListener itemClickListener;
+  private List<Track> mTracks;
+  private ItemClickListener mItemClickListener;
 
   TracksAdapter() {
-    tracks = Collections.emptyList();
+    mTracks = Collections.emptyList();
   }
 
   @NonNull
   @Override
-  public TracksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public TracksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     final View itemView =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_track, parent, false);
     return new TracksViewHolder(itemView);
   }
 
+  @SuppressLint("SetTextI18n")
   @Override
   public void onBindViewHolder(@NonNull TracksViewHolder holder, int position) {
-    Track track = tracks.get(position);
+    Track track = mTracks.get(position);
 
     holder.txt_title_tracks.setText((position + 1) + "." + track.name);
-    holder.txt_track_album.setText(track.album.albumName);
+    holder.txt_track_album.setText(track.album.getAlbumName());
 
-    if (track.album.trackImages.isEmpty()) {
+    if (track.album.getTrackImages().isEmpty()) {
       setDefaultImage(holder);
     } else {
       putImages(holder, position);
@@ -54,20 +56,20 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TracksView
     }
 
     holder.itemView.setOnClickListener((View view) -> {
-      if (itemClickListener != null) {
-        itemClickListener.onItemClick(tracks, track, position);
+      if (mItemClickListener != null) {
+        mItemClickListener.onItemClick(mTracks, track, position);
       }
     });
   }
 
   private void putImages(@NonNull TracksViewHolder holder, int position) {
-    Track track = tracks.get(position);
+    Track track = mTracks.get(position);
     holder.track = track;
     holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-    for (int i = 0; i < track.album.trackImages.size(); i++) {
-      if (track.album.trackImages.get(i) != null && track.album.trackImages.size() > 0) {
+    for (int i = 0; i < track.album.getTrackImages().size(); i++) {
+      if (track.album.getTrackImages().get(i) != null && track.album.getTrackImages().size() > 0) {
         Picasso.with(holder.imageView.getContext())
-            .load(track.album.trackImages.get(0).url)
+            .load(track.album.getTrackImages().get(0).mUrl)
             .into(holder.imageView);
       }
     }
@@ -81,19 +83,19 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TracksView
 
   @Override
   public int getItemCount() {
-    return tracks.size();
+    return mTracks.size();
   }
 
-  void setTracks(List<Track> tracks) {
-    this.tracks = tracks;
+  void setTracks(List<Track> mTracks) {
+    this.mTracks = mTracks;
   }
 
-  void setItemClickListener(ItemClickListener itemClickListener) {
-    this.itemClickListener = itemClickListener;
+  void setItemClickListener(ItemClickListener mItemClickListener) {
+    this.mItemClickListener = mItemClickListener;
   }
 
   public interface ItemClickListener {
-    void onItemClick(List<Track> tracks, Track track, int position);
+    void onItemClick(List<Track> mTracks, Track track, int position);
   }
 
   public static class TracksViewHolder extends RecyclerView.ViewHolder {
