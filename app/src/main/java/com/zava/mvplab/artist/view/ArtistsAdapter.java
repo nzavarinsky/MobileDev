@@ -1,5 +1,6 @@
 package com.zava.mvplab.artist.view;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.zava.mvplab.R;
+import com.zava.mvplab.data.api.Constants;
 
 public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsViewHolder> {
 
@@ -34,15 +36,15 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
   }
 
   @Override
-  public void onBindViewHolder(ArtistsViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull ArtistsViewHolder holder, int position) {
     com.zava.mvplab.artist.model.Artist artist = artists.get(position);
     holder.artist = artist;
     holder.textView.setText(artist.name);
 
-    if (artist.mArtistImages.size() > 0) {
-      putImages(holder, position);
-    } else {
+    if (artist.mArtistImages.isEmpty()) {
       setDefaultImage(holder);
+    } else {
+      putImages(holder, position);
     }
     holder.itemView.setOnClickListener((View view) -> {
       if (itemClickListener != null) {
@@ -51,7 +53,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
     });
   }
 
-  public void putImages(ArtistsViewHolder holder, int position) {
+  private void putImages(ArtistsViewHolder holder, int position) {
     com.zava.mvplab.artist.model.Artist artist = artists.get(position);
     holder.artist = artist;
 
@@ -64,9 +66,9 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
     }
   }
 
-  public void setDefaultImage(ArtistsViewHolder holder) {
+  private void setDefaultImage(ArtistsViewHolder holder) {
     final String imageHolder =
-        "http://www.iphonemode.com/wp-content/uploads/2016/07/Spotify-new-logo.jpg";
+        Constants.Serialized.IMAGE_URL;
     Picasso.with(holder.imageView.getContext()).load(imageHolder).into(holder.imageView);
   }
 
@@ -75,11 +77,11 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
     return artists.size();
   }
 
-  public void setArtists(List<com.zava.mvplab.artist.model.Artist> artists) {
+  void setArtists(List<com.zava.mvplab.artist.model.Artist> artists) {
     this.artists = artists;
   }
 
-  public void setItemClickListener(ItemClickListener itemClickListener) {
+  void setItemClickListener(ItemClickListener itemClickListener) {
     this.itemClickListener = itemClickListener;
   }
 
@@ -87,7 +89,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
     void onItemClick(com.zava.mvplab.artist.model.Artist artist, int position);
   }
 
-  public static class ArtistsViewHolder extends RecyclerView.ViewHolder {
+  static class ArtistsViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.img_view_artist_image)
     ImageView imageView;
@@ -97,7 +99,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistsV
     com.zava.mvplab.artist.model.Artist artist;
     View itemView;
 
-    public ArtistsViewHolder(View itemView) {
+    ArtistsViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
       this.itemView = itemView;

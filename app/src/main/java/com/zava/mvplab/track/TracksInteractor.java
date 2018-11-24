@@ -9,7 +9,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public class TracksInteractor {
+public class TracksInteractor implements com.zava.mvplab.track.TrackContract.Interactor {
 
   private SpotifyService spotifyService;
 

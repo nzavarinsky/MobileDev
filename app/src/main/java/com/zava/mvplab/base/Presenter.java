@@ -21,9 +21,6 @@ public abstract class Presenter<T extends Presenter.View> {
     this.view = view;
   }
 
-  public void initialize() {
-
-  }
 
   public void terminate() {
     dispose();
@@ -40,7 +37,6 @@ public abstract class Presenter<T extends Presenter.View> {
   }
 
   public interface View {
-
     Context context();
   }
 }

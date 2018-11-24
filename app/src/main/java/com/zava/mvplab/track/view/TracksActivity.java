@@ -16,48 +16,56 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
+import com.zava.mvplab.data.api.Constants;
 import com.zava.mvplab.data.api.client.SpotifyClient;
 import com.zava.mvplab.artist.model.Artist;
-//import com.zava.mvplab.view.fragment.PlayerFragment;
 import com.zava.mvplab.track.TracksInteractor;
 import com.zava.mvplab.track.TracksPresenter;
 import com.zava.mvplab.track.model.Track;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
 import com.zava.mvplab.R;
 
 public class TracksActivity extends AppCompatActivity
-    implements TracksPresenter.View, AppBarLayout.OnOffsetChangedListener {
+    implements com.zava.mvplab.track.TrackContract.View, AppBarLayout.OnOffsetChangedListener {
 
   public static final String EXTRA_REPOSITORY = "EXTRA_ARTIST";
-  public static final String EXTRA_TRACK_POSITION = "EXTRA_TRACK_POSITION";
-  public static final String EXTRA_TRACKS = "EXTRA_TRACKS";
 
-  public @BindView(R.id.toolbar) Toolbar toolbar;
-  public @BindView(R.id.appbar_artist) AppBarLayout appbar_artist;
-  public @BindView(R.id.iv_collapsing_artist) ImageView iv_collapsing_artist;
-  public @BindView(R.id.civ_artist) CircleImageView civ_artist;
-  public @BindView(R.id.txt_title_artist) TextView txt_title_artist;
-  public @BindView(R.id.txt_title_tracks) TextView txt_title_tracks;
-  public @BindView(R.id.txt_followers_artist) TextView txt_followers_artist;
-  public @BindView(R.id.txt_subtitle_artist) TextView txt_subtitle_artist;
-  public @BindView(R.id.rv_tracks) RecyclerView rv_tracks;
-  public @BindView(R.id.pv_tracks) ProgressBar pv_tracks;
-  public @BindView(R.id.iv_tracks) ImageView iv_tracks;
-  public @BindView(R.id.txt_line_tracks) TextView txt_line_tracks;
+  public @BindView(R.id.toolbar)
+  Toolbar toolbar;
+  public @BindView(R.id.appbar_artist)
+  AppBarLayout appbar_artist;
+  public @BindView(R.id.iv_collapsing_artist)
+  ImageView imageView_collaplsedArtist;
+  public @BindView(R.id.civ_artist)
+  CircleImageView circleImageView_artist;
+  public @BindView(R.id.txt_title_artist)
+  TextView textView_artist;
+  public @BindView(R.id.txt_title_tracks)
+  TextView textView_tracks;
+  public @BindView(R.id.txt_followers_artist)
+  TextView textView_followers;
+  public @BindView(R.id.txt_subtitle_artist)
+  TextView textView_subTitle;
+  public @BindView(R.id.rv_tracks)
+  RecyclerView recyclerView_tracks;
+  public @BindView(R.id.pv_tracks)
+  ProgressBar progressBar_track;
+  public @BindView(R.id.iv_tracks)
+  ImageView imageView_tracks;
+  public @BindView(R.id.txt_line_tracks)
+  TextView txt_line_tracks;
 
   private TracksPresenter tracksPresenter;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_tracks);
 
@@ -74,50 +82,56 @@ public class TracksActivity extends AppCompatActivity
     tracksPresenter.onSearchTracks(artist.id);
   }
 
-  @Override public void showLoading() {
-    pv_tracks.setVisibility(View.VISIBLE);
-    iv_tracks.setVisibility(View.GONE);
+  @Override
+  public void showLoading() {
+    progressBar_track.setVisibility(View.VISIBLE);
+    imageView_tracks.setVisibility(View.GONE);
     txt_line_tracks.setVisibility(View.GONE);
-    rv_tracks.setVisibility(View.GONE);
+    recyclerView_tracks.setVisibility(View.GONE);
   }
 
-  @Override public void hideLoading() {
-    pv_tracks.setVisibility(View.GONE);
-    rv_tracks.setVisibility(View.VISIBLE);
+  @Override
+  public void hideLoading() {
+    progressBar_track.setVisibility(View.GONE);
+    recyclerView_tracks.setVisibility(View.VISIBLE);
   }
 
-  @Override public void showTracksNotFoundMessage() {
-    pv_tracks.setVisibility(View.GONE);
+  @Override
+  public void showTracksNotFoundMessage() {
+    progressBar_track.setVisibility(View.GONE);
     txt_line_tracks.setVisibility(View.VISIBLE);
-    iv_tracks.setVisibility(View.VISIBLE);
-    txt_line_tracks.setText(getString(R.string.error_tracks_not_found));
-    iv_tracks.setImageDrawable(ContextCompat.getDrawable(context(), R.mipmap.ic_not_found));
+    imageView_tracks.setVisibility(View.VISIBLE);
+    txt_line_tracks.setText(R.string.error_tracks_not_found);
+    imageView_tracks.setImageDrawable(ContextCompat.getDrawable(context(), R.mipmap.ic_not_found));
   }
 
-  @Override public void showConnectionErrorMessage() {
-    pv_tracks.setVisibility(View.GONE);
+  @Override
+  public void showConnectionErrorMessage() {
+    progressBar_track.setVisibility(View.GONE);
     txt_line_tracks.setVisibility(View.VISIBLE);
-    iv_tracks.setVisibility(View.VISIBLE);
-    txt_line_tracks.setText(getString(R.string.error_internet_connection));
-    iv_tracks.setImageDrawable(ContextCompat.getDrawable(TracksActivity.this, R.mipmap.ic_not_internet));
+    imageView_tracks.setVisibility(View.VISIBLE);
+    txt_line_tracks.setText(R.string.error_internet_connection);
+    imageView_tracks.setImageDrawable(ContextCompat.getDrawable(TracksActivity.this, R.mipmap.ic_not_internet));
   }
 
-  @Override public void renderTracks(List<Track> tracks) {
-    TracksAdapter adapter = (TracksAdapter) rv_tracks.getAdapter();
+  @Override
+  public void renderTracks(List<Track> tracks) {
+    TracksAdapter adapter = (TracksAdapter) recyclerView_tracks.getAdapter();
     adapter.setTracks(tracks);
     adapter.notifyDataSetChanged();
   }
 
- @Override public void launchTrackDetail(List<Track> tracks, Track track, int position) {
-  //PlayerFragment.newInstance(setTracks(tracks), position)
-       // .show(getSupportFragmentManager(), "");
+  @Override
+  public void launchTrackDetail(List<Track> tracks, Track track, int position) {
   }
 
-  @Override public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+  @Override
+  public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
     onOffsetChangedState(appBarLayout, verticalOffset);
   }
 
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
       onBackPressed();
       return true;
@@ -136,18 +150,18 @@ public class TracksActivity extends AppCompatActivity
   }
 
   private void hideAndShowTitleToolbar(int visibility) {
-    txt_title_tracks.setVisibility(visibility);
-    txt_subtitle_artist.setVisibility(visibility);
+    textView_tracks.setVisibility(visibility);
+    textView_subTitle.setVisibility(visibility);
   }
 
   private void setupRecyclerView() {
     LinearLayoutManager linearLayoutManager =
         new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-    rv_tracks.setLayoutManager(linearLayoutManager);
+    recyclerView_tracks.setLayoutManager(linearLayoutManager);
     TracksAdapter adapter = new TracksAdapter();
     adapter.setItemClickListener(
         (tracks, track, position) -> tracksPresenter.launchArtistDetail(tracks, track, position));
-    rv_tracks.setAdapter(adapter);
+    recyclerView_tracks.setAdapter(adapter);
 
     appbar_artist.addOnOffsetChangedListener(this);
   }
@@ -163,38 +177,33 @@ public class TracksActivity extends AppCompatActivity
   }
 
   private void initializeViews(Artist artist) {
-
-    if (artist.mArtistImages.size() > 0) {
-      Picasso.with(this)
-          .load(artist.mArtistImages.get(0).url)
-          .transform(new BlurEffectUtils(this, 20))
-          .into(iv_collapsing_artist);
-      Picasso.with(this).load(artist.mArtistImages.get(0).url).into(civ_artist);
-    } else {
+    if (artist.mArtistImages.isEmpty()) {
       final String imageHolder =
-          "http://d2c87l0yth4zbw-2.global.ssl.fastly.net/i/_global/open-graph-default.png";
-      civ_artist.setVisibility(View.GONE);
+          Constants.Serialized.IMAGE_URL;
+      circleImageView_artist.setVisibility(View.GONE);
       Picasso.with(this)
           .load(imageHolder)
           .transform(new BlurEffectUtils(this, 20))
-          .into(iv_collapsing_artist);
+          .into(imageView_collaplsedArtist);
+    } else {
+      Picasso.with(this)
+          .load(artist.mArtistImages.get(0).url)
+          .transform(new BlurEffectUtils(this, 20))
+          .into(imageView_collaplsedArtist);
+      Picasso.with(this).load(artist.mArtistImages.get(0).url).into(circleImageView_artist);
     }
 
-    txt_title_artist.setText(artist.name);
-    txt_subtitle_artist.setText(artist.name);
+
+    textView_artist.setText(artist.name);
+    textView_subTitle.setText(artist.name);
     String totalFollowers = getResources().getQuantityString(R.plurals.numberOfFollowers,
         artist.followers.totalFollowers, artist.followers.totalFollowers);
-    txt_followers_artist.setText(totalFollowers);
+    textView_followers.setText(totalFollowers);
   }
 
-  private String setTracks(List<Track> tracks) {
-    Gson gson = new GsonBuilder().create();
-    Type trackType = new TypeToken<List<Track>>() {
-    }.getType();
-    return gson.toJson(tracks, trackType);
-  }
 
-  @Override public Context context() {
+  @Override
+  public Context context() {
     return TracksActivity.this;
   }
 }

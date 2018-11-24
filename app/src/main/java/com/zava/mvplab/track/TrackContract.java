@@ -12,21 +12,19 @@ import io.reactivex.Observable;
 
 public interface TrackContract {
 
-  interface View extends com.zava.mvplab.base.Presenter.View {
+   interface View extends com.zava.mvplab.base.Presenter.View {
 
     void showLoading();
 
     void hideLoading();
 
-    void showArtistNotFoundMessage();
+    void showTracksNotFoundMessage();
 
     void showConnectionErrorMessage();
 
-    void showServerError();
+    void renderTracks(List<Track> tracks);
 
-    void renderArtists(java.util.List<com.zava.mvplab.artist.model.Artist> artists);
-
-    void launchArtistDetail(com.zava.mvplab.artist.model.Artist artist);
+    void launchTrackDetail(List<Track> tracks, Track track, int position);
   }
 
   interface Presenter {
@@ -36,6 +34,6 @@ public interface TrackContract {
   }
 
   interface Interactor {
-    public Observable<List<Track>> loadData(String artistId);
+     Observable<List<Track>> loadData(String artistId);
   }
 }

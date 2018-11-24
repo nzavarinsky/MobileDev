@@ -52,6 +52,8 @@ public class Constants {
     public static final String PREVIEW_URL = "preview_url";
     public static final String TRACK_NUMBER = "track_number";
     public static final String ALBUM = "album";
+    public static final String IMAGE_URL = "http://d2c87l0yth4zbw-2.global.ssl.fastly" +
+        ".net/i/_global/open-graph-default.png";
 
 
   }

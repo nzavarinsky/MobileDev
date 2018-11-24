@@ -2,6 +2,7 @@
 
 package com.zava.mvplab.track.view;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.zava.mvplab.R;
+import com.zava.mvplab.data.api.Constants;
 import com.zava.mvplab.track.model.Track;
 
 public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TracksViewHolder> {
@@ -24,36 +27,30 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TracksView
   private List<Track> tracks;
   private ItemClickListener itemClickListener;
 
-  public TracksAdapter() {
+  TracksAdapter() {
     tracks = Collections.emptyList();
   }
 
-  @Override public TracksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  @NonNull
+  @Override
+  public TracksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     final View itemView =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_track, parent, false);
     return new TracksViewHolder(itemView);
   }
 
-  @Override public void onBindViewHolder(TracksViewHolder holder, int position) {
+  @Override
+  public void onBindViewHolder(@NonNull TracksViewHolder holder, int position) {
     Track track = tracks.get(position);
 
     holder.txt_title_tracks.setText((position + 1) + "." + track.name);
     holder.txt_track_album.setText(track.album.albumName);
 
-    if (track.album.trackImages.size() > 0) {
-      holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-      for (int i = 0; i < track.album.trackImages.size(); i++) {
-        if (track.album.trackImages.get(i) != null && track.album.trackImages.size() > 0) {
-          Picasso.with(holder.imageView.getContext())
-              .load(track.album.trackImages.get(0).url)
-              .into(holder.imageView);
-        }
-      }
+    if (track.album.trackImages.isEmpty()) {
+      setDefaultImage(holder);
     } else {
+      putImages(holder, position);
 
-      Picasso.with(holder.imageView.getContext())
-          .load("http://d2c87l0yth4zbw-2.global.ssl.fastly.net/i/_global/open-graph-default.png")
-          .into(holder.imageView);
     }
 
     holder.itemView.setOnClickListener((View view) -> {
@@ -63,15 +60,35 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TracksView
     });
   }
 
-  @Override public int getItemCount() {
+  private void putImages(@NonNull TracksViewHolder holder, int position) {
+    Track track = tracks.get(position);
+    holder.track = track;
+    holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+    for (int i = 0; i < track.album.trackImages.size(); i++) {
+      if (track.album.trackImages.get(i) != null && track.album.trackImages.size() > 0) {
+        Picasso.with(holder.imageView.getContext())
+            .load(track.album.trackImages.get(0).url)
+            .into(holder.imageView);
+      }
+    }
+  }
+
+  private void setDefaultImage(@NonNull TracksViewHolder holder) {
+    Picasso.with(holder.imageView.getContext())
+        .load(Constants.Serialized.IMAGE_URL)
+        .into(holder.imageView);
+  }
+
+  @Override
+  public int getItemCount() {
     return tracks.size();
   }
 
-  public void setTracks(List<Track> tracks) {
+  void setTracks(List<Track> tracks) {
     this.tracks = tracks;
   }
 
-  public void setItemClickListener(ItemClickListener itemClickListener) {
+  void setItemClickListener(ItemClickListener itemClickListener) {
     this.itemClickListener = itemClickListener;
   }
 
@@ -81,13 +98,17 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TracksView
 
   public static class TracksViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.iv_track) ImageView imageView;
-    @BindView(R.id.txt_track_title) TextView txt_title_tracks;
-    @BindView(R.id.txt_track_album) TextView txt_track_album;
+    @BindView(R.id.iv_track)
+    ImageView imageView;
+    @BindView(R.id.txt_track_title)
+    TextView txt_title_tracks;
+    @BindView(R.id.txt_track_album)
+    TextView txt_track_album;
 
     View itemView;
+    com.zava.mvplab.track.model.Track track;
 
-    public TracksViewHolder(View itemView) {
+    TracksViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
       this.itemView = itemView;

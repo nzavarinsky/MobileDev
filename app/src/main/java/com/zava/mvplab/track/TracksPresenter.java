@@ -2,12 +2,13 @@
 
 package com.zava.mvplab.track;
 
-import com.zava.mvplab.base.Presenter;
 import com.zava.mvplab.track.model.Track;
 
 import java.util.List;
 
-public class TracksPresenter extends Presenter<TracksPresenter.View> {
+public class TracksPresenter extends com.zava.mvplab.base.Presenter<com.zava.mvplab.track
+    .TrackContract.View>
+    implements com.zava.mvplab.track.TrackContract.Presenter {
 
   private TracksInteractor interactor;
 
@@ -15,7 +16,8 @@ public class TracksPresenter extends Presenter<TracksPresenter.View> {
     this.interactor = interactor;
   }
 
-  @Override public void terminate() {
+  @Override
+  public void terminate() {
     super.terminate();
     setView(null);
   }
@@ -34,20 +36,5 @@ public class TracksPresenter extends Presenter<TracksPresenter.View> {
 
   public void launchArtistDetail(List<Track> tracks, Track track, int position) {
     getView().launchTrackDetail(tracks, track, position);
-  }
-
-  public interface View extends Presenter.View {
-
-    void showLoading();
-
-    void hideLoading();
-
-    void showTracksNotFoundMessage();
-
-    void showConnectionErrorMessage();
-
-    void renderTracks(List<Track> tracks);
-
-    void launchTrackDetail(List<Track> tracks, Track track, int position);
   }
 }
