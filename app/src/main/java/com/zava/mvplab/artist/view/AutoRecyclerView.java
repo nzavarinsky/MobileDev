@@ -1,6 +1,6 @@
 
 
-package com.zava.mvplab.view.widget;
+package com.zava.mvplab.artist.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -41,7 +41,8 @@ public class AutoRecyclerView extends RecyclerView {
     setLayoutManager(manager);
   }
 
-  @Override protected void onMeasure(int widthSpec, int heightSpec) {
+  @Override
+  protected void onMeasure(int widthSpec, int heightSpec) {
     super.onMeasure(widthSpec, heightSpec);
     if (columnWidth > 0) {
       int spanCount = Math.max(1, getMeasuredWidth() / columnWidth);

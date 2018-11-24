@@ -3,13 +3,10 @@
 package com.zava.mvplab.artist;
 
 import com.zava.mvplab.data.api.client.SpotifyService;
-import com.zava.mvplab.artist.Artist;
-
+import io.reactivex.Observable;
 import java.util.List;
 
-import io.reactivex.Observable;
-
-public class ArtistsInteractor {
+public class ArtistsInteractor implements com.zava.mvplab.artist.ArtistContract.Interactor {
 
   private SpotifyService spotifyService;
 
@@ -17,7 +14,8 @@ public class ArtistsInteractor {
     this.spotifyService = spotifyService;
   }
 
-  public Observable<List<Artist>> searchArtists(String query) {
+  @Override
+  public Observable<List<com.zava.mvplab.artist.model.Artist>> searchArtists(String query) {
     return spotifyService.search(query);
   }
 

@@ -1,6 +1,6 @@
 
 
-package com.zava.mvplab.track;
+package com.zava.mvplab.track.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.zava.mvplab.R;
+import com.zava.mvplab.track.model.Track;
 
 public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TracksViewHolder> {
 

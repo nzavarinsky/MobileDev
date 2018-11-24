@@ -3,7 +3,7 @@
 package com.zava.mvplab.track;
 
 import com.zava.mvplab.data.api.client.SpotifyService;
-import com.zava.mvplab.track.Track;
+import com.zava.mvplab.track.model.Track;
 
 import java.util.List;
 

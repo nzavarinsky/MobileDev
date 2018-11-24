@@ -1,4 +1,4 @@
-package com.zava.mvplab.view.widget;
+package com.zava.mvplab.artist.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -16,11 +16,13 @@ import com.zava.mvplab.R;
 public class ShadowFrameLayout extends FrameLayout {
   private static Property<ShadowFrameLayout, Float> SHADOW_ALPHA =
       new Property<ShadowFrameLayout, Float>(Float.class, "shadowAlpha") {
-        @Override public Float get(ShadowFrameLayout dsfl) {
+        @Override
+        public Float get(ShadowFrameLayout dsfl) {
           return dsfl.mAlpha;
         }
 
-        @Override public void set(ShadowFrameLayout dsfl, Float value) {
+        @Override
+        public void set(ShadowFrameLayout dsfl, Float value) {
           dsfl.mAlpha = value;
           ViewCompat.postInvalidateOnAnimation(dsfl);
         }
@@ -60,7 +62,8 @@ public class ShadowFrameLayout extends FrameLayout {
     a.recycle();
   }
 
-  @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+  @Override
+  protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
     mWidth = w;
     mHeight = h;
@@ -73,7 +76,8 @@ public class ShadowFrameLayout extends FrameLayout {
     }
   }
 
-  @Override public void draw(Canvas canvas) {
+  @Override
+  public void draw(Canvas canvas) {
     super.draw(canvas);
     if (mShadowDrawable != null && mShadowVisible) {
       if (mShadowNinePatchDrawable != null) {

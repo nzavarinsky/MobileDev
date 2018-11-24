@@ -1,5 +1,5 @@
 
-package com.zava.mvplab.track;
+package com.zava.mvplab.track.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -21,9 +21,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.zava.mvplab.data.api.client.SpotifyClient;
-import com.zava.mvplab.artist.Artist;
+import com.zava.mvplab.artist.model.Artist;
 //import com.zava.mvplab.view.fragment.PlayerFragment;
-import com.zava.mvplab.view.utils.BlurEffectUtils;
+import com.zava.mvplab.track.TracksInteractor;
+import com.zava.mvplab.track.TracksPresenter;
+import com.zava.mvplab.track.model.Track;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -97,7 +99,7 @@ public class TracksActivity extends AppCompatActivity
     txt_line_tracks.setVisibility(View.VISIBLE);
     iv_tracks.setVisibility(View.VISIBLE);
     txt_line_tracks.setText(getString(R.string.error_internet_connection));
-    iv_tracks.setImageDrawable(ContextCompat.getDrawable(context(), R.mipmap.ic_not_internet));
+    iv_tracks.setImageDrawable(ContextCompat.getDrawable(TracksActivity.this, R.mipmap.ic_not_internet));
   }
 
   @Override public void renderTracks(List<Track> tracks) {
@@ -162,12 +164,12 @@ public class TracksActivity extends AppCompatActivity
 
   private void initializeViews(Artist artist) {
 
-    if (artist.artistImages.size() > 0) {
+    if (artist.mArtistImages.size() > 0) {
       Picasso.with(this)
-          .load(artist.artistImages.get(0).url)
+          .load(artist.mArtistImages.get(0).url)
           .transform(new BlurEffectUtils(this, 20))
           .into(iv_collapsing_artist);
-      Picasso.with(this).load(artist.artistImages.get(0).url).into(civ_artist);
+      Picasso.with(this).load(artist.mArtistImages.get(0).url).into(civ_artist);
     } else {
       final String imageHolder =
           "http://d2c87l0yth4zbw-2.global.ssl.fastly.net/i/_global/open-graph-default.png";

@@ -1,6 +1,6 @@
 
 
-package com.zava.mvplab.artist;
+package com.zava.mvplab.base;
 
 import android.content.Context;
 
@@ -29,7 +29,7 @@ public abstract class Presenter<T extends Presenter.View> {
     dispose();
   }
 
-  void addDisposableObserver(Disposable disposable) {
+  protected void addDisposableObserver(Disposable disposable) {
     compositeDisposable.add(disposable);
   }
 

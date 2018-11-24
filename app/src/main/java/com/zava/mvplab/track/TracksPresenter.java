@@ -2,7 +2,8 @@
 
 package com.zava.mvplab.track;
 
-import com.zava.mvplab.artist.Presenter;
+import com.zava.mvplab.base.Presenter;
+import com.zava.mvplab.track.model.Track;
 
 import java.util.List;
 

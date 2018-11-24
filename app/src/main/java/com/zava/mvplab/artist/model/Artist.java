@@ -1,11 +1,10 @@
 
-package com.zava.mvplab.artist;
+package com.zava.mvplab.artist.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.zava.mvplab.artist.model.ArtistImage;
 import com.zava.mvplab.track.model.Followers;
 
 import java.util.ArrayList;
@@ -31,18 +30,12 @@ public class Artist implements Parcelable {
     }
   };
 
-  @SerializedName(FOLLOWERS)
-  public Followers followers;
-  @SerializedName(HREF)
-  private String href;
-  @SerializedName(ID)
-  public String id;
-  @SerializedName(IMAGES)
-  public List<ArtistImage> artistImages;
-  @SerializedName(NAME)
-  public String name;
-  @SerializedName(POPULARITY)
-  private int popularity;
+  @SerializedName(FOLLOWERS) public Followers followers;
+  @SerializedName(HREF) private String href;
+  @SerializedName(ID) public String id;
+  @SerializedName(IMAGES) public List<ArtistImage> mArtistImages;
+  @SerializedName(NAME) public String name;
+  @SerializedName(POPULARITY) private int popularity;
 
   public Artist() {
   }
@@ -54,24 +47,22 @@ public class Artist implements Parcelable {
     this.followers = in.readParcelable(Followers.class.getClassLoader());
     this.popularity = in.readInt();
 
-    if (this.artistImages == null) {
-      this.artistImages = new ArrayList();
+    if (this.mArtistImages == null) {
+      this.mArtistImages = new ArrayList();
     }
-    in.readTypedList(this.artistImages, ArtistImage.CREATOR);
+    in.readTypedList(this.mArtistImages, ArtistImage.CREATOR);
   }
 
-  @Override
-  public int describeContents() {
+  @Override public int describeContents() {
     return 0;
   }
 
-  @Override
-  public void writeToParcel(Parcel parcel, int i) {
+  @Override public void writeToParcel(Parcel parcel, int i) {
     parcel.writeString(this.href);
     parcel.writeString(this.id);
     parcel.writeString(this.name);
     parcel.writeParcelable(this.followers, 0);
     parcel.writeInt(this.popularity);
-    parcel.writeTypedList(this.artistImages);
+    parcel.writeTypedList(this.mArtistImages);
   }
 }

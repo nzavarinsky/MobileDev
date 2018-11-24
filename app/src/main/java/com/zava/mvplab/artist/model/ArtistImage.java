@@ -1,6 +1,6 @@
 
 
-package com.zava.mvplab.artist;
+package com.zava.mvplab.artist.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,16 +11,16 @@ import static com.zava.mvplab.data.api.Constants.Serialized.HEIGHT;
 import static com.zava.mvplab.data.api.Constants.Serialized.URL;
 import static com.zava.mvplab.data.api.Constants.Serialized.WIDTH;
 
-public class ArtistImages implements Parcelable {
+public class ArtistImage implements Parcelable {
 
-  public static final Creator<ArtistImages> CREATOR = new Creator<ArtistImages>() {
+  public static final Creator<ArtistImage> CREATOR = new Creator<ArtistImage>() {
 
-    public ArtistImages createFromParcel(Parcel source) {
-      return new ArtistImages(source);
+    public ArtistImage createFromParcel(Parcel source) {
+      return new ArtistImage(source);
     }
 
-    public ArtistImages[] newArray(int size) {
-      return new ArtistImages[size];
+    public ArtistImage[] newArray(int size) {
+      return new ArtistImage[size];
     }
   };
 
@@ -28,7 +28,7 @@ public class ArtistImages implements Parcelable {
   @SerializedName(URL) public String url;
   @SerializedName(WIDTH) private int width;
 
-  private ArtistImages(Parcel in) {
+  private ArtistImage(Parcel in) {
     this.heigth = in.readInt();
     this.url = in.readString();
     this.width = in.readInt();
