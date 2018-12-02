@@ -22,4 +22,4 @@ licenses:
     - 'google-gdk-license-.+'
 
 script:
-- chmod +x ./gradlew
+- chmod +x ./gradlew lint
