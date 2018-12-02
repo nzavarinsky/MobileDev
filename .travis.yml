@@ -46,10 +46,6 @@ before_script:
   - mkdir -p build/reports
   - if [[ $LINT == 'true' ]]; then ./gradlew lint ; fi
 
-
-after_failure:
-  - cat $TRAVIS_BUILD_DIR/app/build/reports/lint-results.xml
-
 deploy:
   provider: releases
   skip_cleanup: true
