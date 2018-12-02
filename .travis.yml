@@ -4,6 +4,10 @@ jdk: oraclejdk8
 env:
   global:
     - ADB_INSTALL_TIMEOUT=8
+    - ANDROID_EMULATOR_LEVEL=18
+    - ANDROID_ABI=armeabi-v7a
+    - ANDROID_TAG=google_apis
+    - QEMU_AUDIO_DRV=none
 
 android:
   components:
@@ -15,12 +19,30 @@ android:
      - extra-google-google_play_services
      - extra-google-m2repository
      - extra-android-m2repository
+     - android-$ANDROID_EMULATOR_LEVEL
+      - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMULATOR_LEVEL
 
 licenses:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
+    
+before_script:
+  - mkdir -p build/reports
+  - ./gradlew clean assembleDebug test lint
+    
 
 script:
-- chmod +x ./gradlew 
-- if [[ $LINT == 'true' ]]; then ./gradlew lint ; fi
+  - TERM=dumb ./gradlew assembleDebug
+  
+  
+ deploy:
+  provider: releases
+  skip_cleanup: true
+  overwrite: true
+  api_key: $GITHUB_API_KEY
+  file_glob: true
+  file: /home/travis/build/nzavarinsky/MobileDev/app/build/outputs/apk/debug/app-debug.apk
+  on:
+    repo: nzavarinsky/MobileDev
+    all_branches: true
