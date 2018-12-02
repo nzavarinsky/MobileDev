@@ -46,8 +46,6 @@ before_script:
   - mkdir -p build/reports
   - if [[ $LINT == 'true' ]]; then ./gradlew lint ; fi
 
-script:
-  - TERM=dumb ./gradlew assembleDebug
 
 after_failure:
   - cat $TRAVIS_BUILD_DIR/app/build/reports/lint-results.xml
