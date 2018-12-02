@@ -44,7 +44,7 @@ before_install:
 
 before_script:
   - mkdir -p build/reports
-  - ./gradlew clean assembleDebug test lint
+  - if [[ $LINT == 'true' ]]; then ./gradlew lint ; fi
 
 script:
   - TERM=dumb ./gradlew assembleDebug
