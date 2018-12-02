@@ -17,21 +17,19 @@
 package com.zava.mvplab.data.api.retrofit;
 
 import com.zava.mvplab.data.api.Constants;
-import com.zava.mvplab.data.model.Artist;
-import com.zava.mvplab.data.model.Track;
+import com.zava.mvplab.track.model.Track;
 
-import java.util.List;
-
-import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface SpotifyRetrofitService {
 
-  @GET(Constants.Endpoint.ARTIST_SEARCH) Observable<List<Artist>> searchArtist(
+  @GET(Constants.Endpoint.ARTIST_SEARCH)
+  io.reactivex.Observable<java.util.List<com.zava.mvplab.artist.model.Artist>> searchArtist(
       @Query(Constants.Params.QUERY_SEARCH) String artist);
 
-  @GET(Constants.Endpoint.ARTIST_TRACKS) Observable<List<Track>> getTracks(
+  @GET(Constants.Endpoint.ARTIST_TRACKS)
+  io.reactivex.Observable<java.util.List<Track>> getTracks(
       @Path(Constants.Params.ARTIST_ID) String artistId);
 }

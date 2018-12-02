@@ -1,15 +1,11 @@
 package com.zava.mvplab.data.api.client;
 
-import com.zava.mvplab.data.model.Artist;
-import com.zava.mvplab.data.model.Track;
 
-import java.util.List;
-
-import io.reactivex.Observable;
+import com.zava.mvplab.track.model.Track;
 
 public interface SpotifyService {
 
-  Observable<List<Artist>> search(String query);
+  io.reactivex.Observable<java.util.List<com.zava.mvplab.artist.model.Artist>> search(String query);
 
-  Observable<List<Track>> getTracks(String artistId);
+  io.reactivex.Observable<java.util.List<Track>> getTracks(String artistId);
 }

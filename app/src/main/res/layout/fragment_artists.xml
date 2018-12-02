@@ -6,7 +6,7 @@
     android:orientation="vertical"
     >
 
-  <com.zava.mvplab.view.widget.ShadowFrameLayout
+  <com.zava.mvplab.artist.view.ShadowFrameLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@color/light_grey"
@@ -17,7 +17,7 @@
         style="@style/Theme.AppTheme.Music.HeaderBar"
         >
 
-      <include layout="@layout/toolbar"/>
+      <include layout="@layout/artists_toolbar"/>
 
     </LinearLayout>
 
@@ -29,7 +29,7 @@
         android:orientation="vertical"
         >
 
-      <com.zava.mvplab.view.widget.AutoRecyclerView
+      <com.zava.mvplab.artist.view.AutoRecyclerView
           android:id="@+id/rv_artists"
           style="@style/Theme.AppTheme.Music.RecyclerView"
           />
@@ -46,21 +46,21 @@
 
       <TextView
           android:id="@+id/txt_line_artists"
+          style="@style/Theme.AppTheme.Music.TextView"
           android:text="@string/search_music_hint"
           android:textSize="@dimen/size_title"
-          style="@style/Theme.AppTheme.Music.TextView"
           />
 
       <TextView
           android:id="@+id/txt_subline_artists"
+          style="@style/Theme.AppTheme.Music.TextView"
           android:text="@string/search_artist_hint"
           android:textSize="@dimen/size_subtitle"
-          style="@style/Theme.AppTheme.Music.TextView"
           />
 
 
     </LinearLayout>
 
-  </com.zava.mvplab.view.widget.ShadowFrameLayout>
+  </com.zava.mvplab.artist.view.ShadowFrameLayout>
 
 </LinearLayout>

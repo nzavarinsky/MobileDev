@@ -3,6 +3,7 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:gravity="center"
@@ -14,25 +15,21 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:scaleType="centerCrop"
+      android:src="@drawable/ic_arrow_back_black_24dp"
       />
 
-  <FrameLayout
+
+  <TextView
+      android:id="@+id/txt_artist_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|center"
       android:background="@color/text_tertiary_dark"
-      >
+      android:padding="16dp"
+      android:textColor="@color/text_primary_light"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      />
 
-    <TextView
-        android:id="@+id/txt_artist_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:textColor="@color/text_primary_light"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        />
-
-  </FrameLayout>
 
 </FrameLayout>

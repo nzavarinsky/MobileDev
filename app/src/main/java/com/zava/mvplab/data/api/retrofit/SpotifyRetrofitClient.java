@@ -2,14 +2,8 @@ package com.zava.mvplab.data.api.retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.zava.mvplab.data.api.Constants;
-import com.zava.mvplab.data.api.retrofit.deserializer.ArtistsDeserializer;
-import com.zava.mvplab.data.api.retrofit.deserializer.TracksDeserializer;
-import com.zava.mvplab.data.model.Artist;
-import com.zava.mvplab.data.model.Track;
-
-import java.util.List;
+import com.zava.mvplab.track.model.Track;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -50,10 +44,10 @@ public abstract class SpotifyRetrofitClient {
   }
 
   private Gson getSpotifyDeserializer() {
-    return new GsonBuilder().registerTypeAdapter(new TypeToken<List<Artist>>() {
-    }.getType(), new ArtistsDeserializer<Artist>())
-        .registerTypeAdapter(new TypeToken<List<Track>>() {
-        }.getType(), new TracksDeserializer<Track>())
+    return new GsonBuilder().registerTypeAdapter(new com.google.gson.reflect.TypeToken<java.util.List<com.zava.mvplab.artist.model.Artist>>() {
+    }.getType(), new com.zava.mvplab.data.api.retrofit.deserializer.ArtistsDeserializer<com.zava.mvplab.artist.model.Artist>())
+        .registerTypeAdapter(new com.google.gson.reflect.TypeToken<java.util.List<Track>>() {
+        }.getType(), new com.zava.mvplab.data.api.retrofit.deserializer.TracksDeserializer<Track>())
         .create();
   }
 
