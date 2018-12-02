@@ -22,4 +22,5 @@ licenses:
     - 'google-gdk-license-.+'
 
 script:
-- chmod +x ./gradlew lint
+- chmod +x ./gradlew 
+- if [[ $LINT == 'true' ]]; then ./gradlew lint ; fi
