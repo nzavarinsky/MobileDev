@@ -49,10 +49,8 @@ script:
 deploy:
   provider: releases
   skip_cleanup: true
-  overwrite: true
   api_key: $GITHUB_API_KEY
-  file_glob: true
   file: app/build/outputs/apk/debug/app-debug.apk
   on:
-    tags:false
+    tags: false
     all_branches: true
