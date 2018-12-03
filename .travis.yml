@@ -20,6 +20,9 @@ licenses:
   
 script:
 - chmod +x ./gradlew 
+- ./gradlew assembleRelease --stacktrace
+
+install: true
 
 deploy:
   provider: releases
