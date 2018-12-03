@@ -23,13 +23,12 @@ before_script:
   
 script:
 - chmod +x ./gradlew 
-- if [[ $LINT == 'true' ]]; then ./gradlew lint ; fi
 
 deploy:
   provider: releases
   skip_cleanup: true
   api_key: $GITHUB_API_KEY
-  file: app/build/outputs/apk/debug/app-debug.apk
+  file: nzavarinsky/MobileDev/app/build/outputs/apk/debug/app-debug.apk
   on:
     tags: false
     all_branches: true
