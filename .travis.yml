@@ -25,7 +25,7 @@ deploy:
   provider: releases
   skip_cleanup: true
   api_key: $GITHUB_API_KEY
-  file: nzavarinsky/MobileDev/app/build/outputs/apk/debug/app-debug.apk
+  file: app/build/outputs/apk/debug/app-debug.apk
   on:
     tags: false
     all_branches: true
