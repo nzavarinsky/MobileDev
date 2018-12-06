@@ -1,16 +1,16 @@
 language: android
 jdk: oraclejdk8
-
-env:
-  global:
-    - ADB_INSTALL_TIMEOUT=8
-
+sudo: false
+  
 android:
   components:
      - tools
      - platform-tools
      - build-tools-27.0.3
      - android-27
+     - android-22
+     - android-24
+     - sys-img-armeabi-v7a-android-22
      - extra-android-support
      - extra-google-google_play_services
      - extra-google-m2repository
@@ -20,6 +20,22 @@ licenses:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
+    
+before_script:
+    - echo yes | sdkmanager "build-tools;28.0.2"
+    - chmod +x gradlew
 
 script:
-  - ./gradlew checkstyle assemble testDebug
+   - ./gradlew connectedAndroidTest
+   - ./gradlew assembleDebug lint
+   
+install: true
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key: $GITHUB_API_KEY
+  file: app/build/outputs/apk/debug/app-debug.apk
+  on:
+    tags: false
+    all_branches: true
