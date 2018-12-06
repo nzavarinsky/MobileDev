@@ -1,26 +1,20 @@
 language: android
 jdk: oraclejdk8
-
-env:
-  global:
-    - ADB_INSTALL_TIMEOUT=8
-    - ANDROID_EMULATOR_LEVEL=18
-    - ANDROID_ABI=armeabi-v7a
-    - ANDROID_TAG=google_apis
-    - QEMU_AUDIO_DRV=none
-
+sudo: false
+  
 android:
   components:
      - tools
      - platform-tools
      - build-tools-27.0.3
      - android-27
+     - android-22
+     - android-24
+     - sys-img-armeabi-v7a-android-22
      - extra-android-support
      - extra-google-google_play_services
      - extra-google-m2repository
      - extra-android-m2repository
-     - android-$ANDROID_EMULATOR_LEVEL
-      - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMULATOR_LEVEL
 
 licenses:
     - 'android-sdk-preview-license-.+'
@@ -28,21 +22,20 @@ licenses:
     - 'google-gdk-license-.+'
     
 before_script:
-  - mkdir -p build/reports
-  - ./gradlew clean assembleDebug test lint
-    
+    - echo yes | sdkmanager "build-tools;28.0.2"
+    - chmod +x gradlew
 
 script:
-  - TERM=dumb ./gradlew assembleDebug
-  
-  
- deploy:
+   - ./gradlew connectedAndroidTest
+   - ./gradlew assembleDebug lint
+   
+install: true
+
+deploy:
   provider: releases
   skip_cleanup: true
-  overwrite: true
   api_key: $GITHUB_API_KEY
-  file_glob: true
-  file: /home/travis/build/nzavarinsky/MobileDev/app/build/outputs/apk/debug/app-debug.apk
+  file: app/build/outputs/apk/debug/app-debug.apk
   on:
-    repo: nzavarinsky/MobileDev
+    tags: false
     all_branches: true
