@@ -27,7 +27,7 @@ before_script:
 
 script:
    - ./gradlew connectedAndroidTest
-   - ./gradlew assembleDebug
+   - ./gradlew assembleDebug lint
    - if [[ $LINT == 'true' ]]; then ./gradlew lint ; fi
   
 install: true
